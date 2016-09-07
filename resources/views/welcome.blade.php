@@ -14,7 +14,10 @@
 
 <script>
     $(document).ready( function(){
-        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
+//        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
+//        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
+        $musicNow = $('#mlist').val();
+        $('audio').attr('src', $musicNow);
     });
 </script>
 </head>
@@ -23,8 +26,9 @@
 
 
     <div>
-        <select>
-            <option value=""> ------- first Music ------ </option>
+        <select id="mlist">
+            <option value="0"> ------- first Music ------ </option>
+            <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3">Precious Memories</option>
         </select>
         <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Music!</a>
     </div>
