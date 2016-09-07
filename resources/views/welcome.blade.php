@@ -23,7 +23,10 @@
 
 
     <div>
-        <input type="text" placeholder="Add more music URLs"/><a class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Music!</a>
+        <select>
+            <option value=""> ------- first Music ------ </option>
+        </select>
+        <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Music!</a>
     </div>
     <div id="list" class="">
         <table class="table table-striped">
@@ -43,14 +46,17 @@
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title">Add more Music (URL)</h4>
                     </div>
                     <div class="modal-body">
-                        <p>This is a small modal.</p>
+                        <p>
+                            <input type="text" placeholder="http//something.com/music/GodIsgood.mp3" class="urlBox">
+                            <button type="button" class="btn btn-success">Add</button>
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
