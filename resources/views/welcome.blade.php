@@ -20,7 +20,7 @@
             $urlbox = $(".urlBox").val();
 
             if($urlbox == ''|| $urlbox == 'http//something.com/music/GodIsgood.mp3'){
-                alert($urlbox);
+                $( "form" ).append( "<p style='color: red'><i>You need to add a URL</i></p>" );
             }
 //            $('#selectID').append($('<option>',
 //                    {
