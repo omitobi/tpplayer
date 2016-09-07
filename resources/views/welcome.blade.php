@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>HTML5 Audio Tutorial</title>
+    <title>Play your music </title>
 
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -26,6 +26,11 @@
             } else {
 
                 var $sName = $url.substring($url.lastIndexOf('/') + 1);
+                if(!$sName.length)
+                {
+                    alert('Url is bad');
+                    exit;
+                }
                 $('#mlist').append($('<option>',
                         {
                             value: $url,
@@ -35,8 +40,13 @@
 
         });
 
+//        $('#myModal').dialog("close");
+
         var $musicNow = $('#mlist').val();
-        $('audio').attr('src', $musicNow);
+        $('player').attr('src', $musicNow);
+        $('#next').click(function () {
+
+        });
     });
 </script>
 </head>

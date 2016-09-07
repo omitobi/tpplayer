@@ -1,13 +1,13 @@
-jQuery(document).ready(function() {
-
-    container = $('.container');
-    cover = $('.cover');
-    play = $('#play');
-    pause = $('#pause');
-    mute = $('#mute');
-    muted = $('#muted');
-    close = $('#close');
-});
+// jQuery(document).ready(function() {
+//
+//     container = $('.container');
+//     cover = $('.cover');
+//     play = $('#play');
+//     pause = $('#pause');
+//     mute = $('#mute');
+//     muted = $('#muted');
+//     close = $('#close');
+// });
     // song = new Audio('music/track1.ogg','http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Amazing%20grace.mp3');
     // duration = song.duration;
 //
