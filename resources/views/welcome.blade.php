@@ -17,20 +17,25 @@
 //        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
 //        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
         $('#urlAdd').click(function () {
-            $urlbox = $(".urlBox").val();
-
-            if($urlbox == ''|| $urlbox == 'http//something.com/music/GodIsgood.mp3'){
-                $( "form" ).append( "<p style='color: red'><i>You need to add a URL</i></p>" );
+            var $url = $(".urlBox").val();
+            if ($('.err').length) {
+                $( ".err" ).empty();
             }
-//            $('#selectID').append($('<option>',
-//                    {
-//                        value: value_variable,
-//                        text : text_variable
-//                    }));
+            if($url == ''|| $url == 'http//something.com/music/GodIsgood.mp3' || !/^http/.test($url)){
+                $( "form" ).after( "<p style='color: red' class='err'><i>You need to add a URL</i></p>" );
+            } else {
+
+                var $sName = $url.substring($url.lastIndexOf('/') + 1);
+                $('#mlist').append($('<option>',
+                        {
+                            value: $url,
+                            text: $sName
+                        }));
+            }
 
         });
 
-        $musicNow = $('#mlist').val();
+        var $musicNow = $('#mlist').val();
         $('audio').attr('src', $musicNow);
     });
 </script>
