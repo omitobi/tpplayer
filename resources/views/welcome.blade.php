@@ -16,6 +16,20 @@
     $(document).ready( function(){
 //        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
 //        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
+        $('#urlAdd').click(function () {
+            $urlbox = $(".urlBox").val();
+
+            if($urlbox == ''|| $urlbox == 'http//something.com/music/GodIsgood.mp3'){
+                alert($urlbox);
+            }
+//            $('#selectID').append($('<option>',
+//                    {
+//                        value: value_variable,
+//                        text : text_variable
+//                    }));
+
+        });
+
         $musicNow = $('#mlist').val();
         $('audio').attr('src', $musicNow);
     });
@@ -58,8 +72,10 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            <input type="text" placeholder="http//something.com/music/GodIsgood.mp3" class="urlBox">
-                            <button type="button" class="btn btn-success">Add</button>
+                            <form>
+                            <input type="text" placeholder="http//something.com/music/GodIsgood.mp3" class="urlBox" required>
+                            <button type="button" class="btn btn-success" id="urlAdd">Add</button>
+                            </form>
                         </p>
                     </div>
                     <div class="modal-footer">
