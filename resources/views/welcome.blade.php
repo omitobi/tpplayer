@@ -10,80 +10,6 @@
     <script type="text/javascript" src="js/html5slider.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-<script>
-    $(document).ready( function(){
-//        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
-//        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
-        var $musicList = $('#mlist');
-        var $pageCheck = $('#pageCheck');
-
-        var $mPage = "<div class='pageBody'><iframe "+
-                "src='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/' style='width: 100%; height:500px'>" +
-                "Here</iframe></div>";
-        if($('#pageCheck').is(":checked"))
-            $(".pageBody").after($mPage);
-
-        $pageCheck.on('click', function () {
-            var mCheck = $pageCheck.is(":checked");
-            if(mCheck) {
-                $("#mURLBody").after($mPage);
-            } else {
-                $(".pageBody").empty();
-            }
-        });
-
-
-        $('#urlAdd').click(function () {
-            var $urlBox = $(".urlBox");
-            var $url = $urlBox.val();
-            if ($('.err').length) {
-                $( ".err" ).empty();
-            }
-            if($url == ''|| $url == 'http//something.com/music/GodIsgood.mp3' || !/^http/.test($url)){
-                $( "form" ).after( "<p style='color: red' class='err'><i>You need to add a URL</i></p>" );
-            } else {
-                var $sName = $url.substring($url.lastIndexOf('/') + 1);
-                $sName = $sName.replace(/%20/gi," ");
-                $sName = $sName.replace(".mp3","");
-                if(!$sName.length)
-                {
-                    alert('Url is bad');
-                    exit;
-                }
-                $musicList.append($('<option>',
-                        {
-                            value: $url,
-                            text: $sName
-                        }));
-                $('#myModal').modal('toggle');
-                $( "#pageCheck" ).prop( "checked", false );
-                $(".pageBody").empty();
-                $urlBox.val('');
-            }
-        });
-
-
-        var $musicNow = $musicList.val();
-        $('#player').attr('src', $musicNow);
-//        $('#next').click(function () {
-//
-//        });
-        document.getElementById('player').play();
-
-
-        $musicList.on('change',  function () {
-            var $musicNow = $musicList.val();
-            $('#player').attr('src', $musicNow);
-            document.getElementById('player').play();
-        });
-
-
-
-
-    });
-</script>
 </head>
 
 <body>
@@ -155,7 +81,7 @@
         <audio controls="controls" src="" id="player">
             Your browser does not support the audio element.
         </audio>
-        <a class="button gradient" id="next" onclick="document.getElementById('player').src ='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3'"></a>
+        <a class="button gradient" id="next"></a>
         <a class="button gradient" id="play" onclick="document.getElementById('player').play()"></a>
         <a class="button gradient" id="pause" onclick="document.getElementById('player').pause()"></a>
         <a class="button gradient" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
