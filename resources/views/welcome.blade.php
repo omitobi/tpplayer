@@ -22,6 +22,9 @@
         var $mPage = "<div class='pageBody'><iframe "+
                 "src='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/' style='width: 100%; height:500px'>" +
                 "Here</iframe></div>";
+        if($('#pageCheck').is(":checked"))
+            $(".pageBody").after($mPage);
+
         $pageCheck.on('click', function () {
             var mCheck = $pageCheck.is(":checked");
             if(mCheck) {
@@ -31,8 +34,10 @@
             }
         });
 
+
         $('#urlAdd').click(function () {
-            var $url = $(".urlBox").val();
+            var $urlBox = $(".urlBox");
+            var $url = $urlBox.val();
             if ($('.err').length) {
                 $( ".err" ).empty();
             }
@@ -52,11 +57,13 @@
                             value: $url,
                             text: $sName
                         }));
+                $('#myModal').modal('toggle');
+                $( "#pageCheck" ).prop( "checked", false );
+                $(".pageBody").empty();
+                $urlBox.val('');
             }
         });
 
-
-//        $('#myModal').dialog("close");
 
         var $musicNow = $musicList.val();
         $('#player').attr('src', $musicNow);
