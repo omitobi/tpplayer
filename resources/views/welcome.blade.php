@@ -19,8 +19,6 @@
         var $musicList = $('#mlist');
         var $pageCheck = $('#pageCheck');
 
-//        alert($pageLoad.get(0).checked);
-
         var $mPage = "<div class='pageBody'><iframe "+
                 "src='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/' style='width: 100%; height:500px'>" +
                 "Here</iframe></div>";
@@ -41,8 +39,9 @@
             if($url == ''|| $url == 'http//something.com/music/GodIsgood.mp3' || !/^http/.test($url)){
                 $( "form" ).after( "<p style='color: red' class='err'><i>You need to add a URL</i></p>" );
             } else {
-
                 var $sName = $url.substring($url.lastIndexOf('/') + 1);
+                $sName = $sName.replace(/%20/gi," ");
+                $sName = $sName.replace(".mp3","");
                 if(!$sName.length)
                 {
                     alert('Url is bad');
