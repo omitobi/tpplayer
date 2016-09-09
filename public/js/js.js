@@ -19,6 +19,7 @@ $(document).ready( function(){
 
 
     var $musicList = $('#mlist');
+    var fullList = $('#fullList');
     var $pageCheck = $('#pageCheck');
 
     var $mPage = "<div class='pageBody'><iframe "+
@@ -59,6 +60,18 @@ $(document).ready( function(){
                     value: $url,
                     text: $sName
                 }));
+            $tableStruct = "<tr>" +
+                "<td>" +
+                $sName +
+                "</td>" +
+                "<td>" +
+                $url +
+                "</td>" +
+                "<td>Yess</td>" +
+                "</tr>";
+            fullList.append(
+                $tableStruct
+            );
             $('#myModal').modal('toggle');
             $( "#pageCheck" ).prop( "checked", false );
             $(".pageBody").empty();
@@ -68,11 +81,8 @@ $(document).ready( function(){
 
     var $musicNow = $musicList.val();
     $('#player').attr('src', $musicNow);
-//        $('#next').click(function () {
-//
-//        });
-//     document.getElementById('player').play();
 
+    //Default switch to the next song
     nextSong();
 
     function nextSong() {
@@ -92,7 +102,6 @@ $(document).ready( function(){
             $musicList.val($nextSong).change();
         }else {
             $musicList.val($nextSong).change();
-            // nextSong();
         }
     });
 
