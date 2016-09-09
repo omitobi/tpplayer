@@ -16,7 +16,23 @@
     $(document).ready( function(){
 //        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
 //        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
-        $musicList = $('#mlist');
+        var $musicList = $('#mlist');
+        var $pageCheck = $('#pageCheck');
+
+//        alert($pageLoad.get(0).checked);
+
+        var $mPage = "<div class='pageBody'><iframe "+
+                "src='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/' style='width: 100%; height:500px'>" +
+                "Here</iframe></div>";
+        $pageCheck.on('click', function () {
+            var mCheck = $pageCheck.is(":checked");
+            if(mCheck) {
+                $("#mURLBody").after($mPage);
+            } else {
+                $(".pageBody").empty();
+            }
+        });
+
         $('#urlAdd').click(function () {
             var $url = $(".urlBox").val();
             if ($('.err').length) {
@@ -56,6 +72,10 @@
             $('#player').attr('src', $musicNow);
             document.getElementById('player').play();
         });
+
+
+
+
     });
 </script>
 </head>
@@ -92,20 +112,15 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Add more Music (URL)</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="mURLBody">
                         <p>
                             <form>
                             <input type="text" placeholder="http//something.com/music/GodIsgood.mp3" class="urlBox" required>
                             <button type="button" class="btn btn-success" id="urlAdd">Add</button>
                             </form>
                         </p>
-                        <input type="checkbox" id="pageLoad" />
-                        <label for="pageLoad">Load Links from Page as well?</label>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            <iframe src="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/" style="width: 100%; height:500px"> Here</iframe>
-                        </p>
+                        <input type="checkbox" id="pageCheck" />
+                        <label for="pageCheck">Load Links from Page as well?</label>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
