@@ -16,6 +16,7 @@
     $(document).ready( function(){
 //        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
 //        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
+        $musicList = $('#mlist');
         $('#urlAdd').click(function () {
             var $url = $(".urlBox").val();
             if ($('.err').length) {
@@ -31,32 +32,38 @@
                     alert('Url is bad');
                     exit;
                 }
-                $('#mlist').append($('<option>',
+                $musicList.append($('<option>',
                         {
                             value: $url,
                             text: $sName
                         }));
             }
-
         });
+
 
 //        $('#myModal').dialog("close");
 
-        var $musicNow = $('#mlist').val();
-        $('player').attr('src', $musicNow);
-        $('#next').click(function () {
+        var $musicNow = $musicList.val();
+        $('#player').attr('src', $musicNow);
+//        $('#next').click(function () {
+//
+//        });
+        document.getElementById('player').play();
 
+
+        $musicList.on('change',  function () {
+            var $musicNow = $musicList.val();
+            $('#player').attr('src', $musicNow);
+            document.getElementById('player').play();
         });
     });
 </script>
 </head>
 
 <body>
-
-
     <div>
         <select id="mlist">
-            <option value="0"> ------- first Music ------ </option>
+            <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3">--- Select Music ---</option>
             <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3">Precious Memories</option>
         </select>
         <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Music!</a>
@@ -92,6 +99,13 @@
                             <button type="button" class="btn btn-success" id="urlAdd">Add</button>
                             </form>
                         </p>
+                        <input type="checkbox" id="pageLoad" />
+                        <label for="pageLoad">Load Links from Page as well?</label>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <iframe src="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/" style="width: 100%; height:500px"> Here</iframe>
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -120,7 +134,7 @@
         <audio controls="controls" src="" id="player">
             Your browser does not support the audio element.
         </audio>
-        <a class="button gradient" id="next" onclick="document.getElementById('player').src =''"></a>
+        <a class="button gradient" id="next" onclick="document.getElementById('player').src ='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3'"></a>
         <a class="button gradient" id="play" onclick="document.getElementById('player').play()"></a>
         <a class="button gradient" id="pause" onclick="document.getElementById('player').pause()"></a>
         <a class="button gradient" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
