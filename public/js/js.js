@@ -118,6 +118,17 @@ $(document).ready( function(){
             $musicList.val($nextSong).change();
         }
     });
+    var audio = document.getElementById('player');
+    $('#dur').on('click', function () {
+        // audio.addEventListener('timeupdate',function(){
+        //     var currentTimeMs = audio.currentTime*1000;
+        //     console.log(currentTimeMs);
+        // },false);
+        // alert($('audio').currentTime);
+
+    });
+
+    audio.onended = function(e) { alert("Audio ended"); }
 
 
 });

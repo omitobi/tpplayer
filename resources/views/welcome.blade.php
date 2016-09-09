@@ -58,6 +58,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
     <div class="container gradient">
 
@@ -80,6 +81,7 @@
         <audio controls="controls" src="" id="player">
             Your browser does not support the audio element.
         </audio>
+        <a id="dur">Last Duration</a>
         <a class="button gradient" id="next"></a>
         <a class="button gradient" id="play" onclick="document.getElementById('player').play()"></a>
         <a class="button gradient" id="pause" onclick="document.getElementById('player').pause()"></a>
