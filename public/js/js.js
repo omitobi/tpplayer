@@ -12,6 +12,12 @@
 $(document).ready( function(){
 //        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
 //        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
+    var $play = $('#play');
+    var $pause = $('#pause');
+    var $mute = $('#mute');
+    var $next = $('#next');
+
+
     var $musicList = $('#mlist');
     var $pageCheck = $('#pageCheck');
 
@@ -60,23 +66,35 @@ $(document).ready( function(){
         }
     });
 
-
     var $musicNow = $musicList.val();
     $('#player').attr('src', $musicNow);
 //        $('#next').click(function () {
 //
 //        });
-    document.getElementById('player').play();
+//     document.getElementById('player').play();
 
+    nextSong();
 
-    $musicList.on('change',  function () {
+    function nextSong() {
         var $musicNow = $musicList.val();
         $('#player').attr('src', $musicNow);
         document.getElementById('player').play();
+    }
+
+    $musicList.on('change',  function () {
+        nextSong();
     });
 
-
-
+    $next.on('click', function () {
+        var $nextSong = $('#mlist option:selected').next().val();
+        if($nextSong == undefined) {
+            $nextSong =  $musicList.find('option:first').prop('selected', 'selected').val();
+            $musicList.val($nextSong).change();
+        }else {
+            $musicList.val($nextSong).change();
+            // nextSong();
+        }
+    });
 
 
 });
