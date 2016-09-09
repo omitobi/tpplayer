@@ -47,7 +47,7 @@ $(document).ready( function(){
         if($url == ''|| $url == 'http//something.com/music/GodIsgood.mp3' || !/^http/.test($url)){
             $( "form" ).after( "<p style='color: red' class='err'><i>You need to add a URL</i></p>" );
         } else {
-            var $sName = $url.substring($url.lastIndexOf('/') + 1);
+            $sName = $url.substring($url.lastIndexOf('/') + 1);
             $sName = $sName.replace(/%20/gi," ");
             $sName = $sName.replace(".mp3","");
             if(!$sName.length)
@@ -60,24 +60,38 @@ $(document).ready( function(){
                     value: $url,
                     text: $sName
                 }));
+            $('#myModal').modal('toggle');
+            $( "#pageCheck" ).prop( "checked", false );
+            $(".pageBody").empty();
+            $urlBox.val('');
+            fullList.empty();
+            loadTable();
+        }
+    });
+
+    loadTable();
+    function loadTable() {
+        $("#mlist option").each(function()
+        {
+            var $sURL = $(this).val();
+            var $sName = $(this).text();
+
             $tableStruct = "<tr>" +
                 "<td>" +
                 $sName +
                 "</td>" +
                 "<td>" +
-                $url +
+                $sURL +
                 "</td>" +
                 "<td>Yess</td>" +
                 "</tr>";
             fullList.append(
                 $tableStruct
             );
-            $('#myModal').modal('toggle');
-            $( "#pageCheck" ).prop( "checked", false );
-            $(".pageBody").empty();
-            $urlBox.val('');
-        }
-    });
+        });
+    }
+
+
 
     var $musicNow = $musicList.val();
     $('#player').attr('src', $musicNow);
