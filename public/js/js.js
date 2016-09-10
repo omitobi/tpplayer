@@ -139,11 +139,12 @@ $(document).ready( function(){
     playPause();
     function playPause() {
         if(!$player.paused){
-            // $('#play').attr('id', 'pause');
+
             // div = $("#dummy").html("<a class='button gradient' id='pause'></a>");
              // $("controller").prepend(div);
 
         }else {
+
             // $('#pause').attr('id', 'play');
             // div = $("#pause").html("<a class='button gradient' id='play'></a>");
         }
@@ -154,6 +155,8 @@ $(document).ready( function(){
         // alert('Pausing');
         playPause();
         $player.pause();
+        $('#pause').attr('id', 'play');
+
         // player.pause();
     });
 
@@ -161,6 +164,7 @@ $(document).ready( function(){
         // alert('Pausing');
         playPause();
         $player.play();
+        $('#play').attr('id', 'pause');
         // player.pause();
     });
 
@@ -168,6 +172,20 @@ $(document).ready( function(){
         nextTrack();
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
+
+    $('#grabCheck').on('click', function () {
+        if($('#grabCheck').is(":checked")){
+            var value = $('.pageBody').contents().find("tr>td>a").attr('href');
+            alert(value);
+        }
+    });
+
+    // $('iframe').on('load', function() {
+    //     alert('o');
+    //     var value = $('.pageBody').contents().find("a").prop('href');
+    //     alert(value);
+    // });
+
 
 });
 

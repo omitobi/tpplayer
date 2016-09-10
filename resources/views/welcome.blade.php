@@ -12,55 +12,78 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <div>
+    <div style="width: 100%">
         <select id="mlist">
             <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Amazing%20grace.mp3">--- Select Music ---</option>
             <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3">Precious Memories</option>
         </select>
         <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Music!</a>
     </div>
-    <div id="list" class="">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Name </th>
-                <th>Link</th>
-                <th>Available</th>
-            </tr>
-            </thead>
-            <tbody id="fullList">
-            <tr>
 
-            </tr>
-            </tbody>
-        </table>
 
+    <div style="margin-left: 5px; margin-right: 10px; background-color: black">
+        <div style="margin-top: 5px; width: 25%; float: left; border: 5px">
+            <div style="width: 79%; height: 300px; background-image:url('images/cover.jpg')">
+
+            </div>
+            <audio controls="controls" src="" id="player">
+                Your browser does not support the audio element.
+            </audio>
+            <div id="controller">
+                <a id="dur">Last Duration</a>
+                <a class="button gradient" id="next">Next</a>
+                <a class="button gradient" id="pause">Pause</a>
+                <a class="button gradient" id="play">Play</a>
+                <a class="button" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
+                <a class="button" id="vdown" onclick="document.getElementById('player').volume -= 0.1"></a>
+                <a class="button" id="mute" onclick="document.getElementById('player').volume = 0">Mute </a>
+            </div>
+        </div>
+        <div id="list" class="" style="width: 75%; float: left">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name </th>
+                    <th>Link</th>
+                    <th>Available</th>
+                </tr>
+                </thead>
+                <tbody id="fullList">
+                <tr>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add more Music (URL)</h4>
-                    </div>
-                    <div class="modal-body" id="mURLBody">
-                        <p>
-                            <form>
-                            <input type="text" placeholder="http//something.com/music/GodIsgood.mp3" class="urlBox" required>
-                            <button type="button" class="btn btn-success" id="urlAdd">Add</button>
-                            </form>
-                        </p>
-                        <input type="checkbox" id="pageCheck" />
-                        <label for="pageCheck">Load Links from Page as well?</label>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add more Music (URL)</h4>
+                </div>
+                <div class="modal-body" id="mURLBody">
+                    <p>
+                        <form>
+                        <input type="text" placeholder="http//something.com/music/GodIsgood.mp3" class="urlBox" required>
+                        <button type="button" class="btn btn-success" id="urlAdd">Add</button>
+                        </form>
+                    </p>
+                    <input type="checkbox" id="pageCheck" />
+                    <label for="pageCheck">Load Links from Page as well?</label>
+                    <input type="checkbox" id="grabCheck" />
+                    <label for="grabCheck">grab all mp3 links from this page?</label>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container gradient">
+
 
     {{--<img class="cover" src="images/cover.jpg" alt="">--}}
 
@@ -78,19 +101,5 @@
     {{--</div><!-- / player -->--}}
 
     {{--</div><!-- / Container-->--}}
-        <audio controls="controls" src="" id="player">
-            Your browser does not support the audio element.
-        </audio>
-        <div id="controller">
-            <a id="dur">Last Duration</a>
-            <a class="button gradient" id="next">Next</a>
-            <a class="button gradient" id="pause">Pause</a>
-            <a class="button gradient" id="pause">Play</a>
-            <a class="button" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
-            <a class="button" id="vdown" onclick="document.getElementById('player').volume -= 0.1"></a>
-            <a class="button" id="mute" onclick="document.getElementById('player').volume = 0">Mute </a>
-        </div>
-    </div>
-<div class="content"></div>
 </body>
 </html>
