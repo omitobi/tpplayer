@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    {{--<link rel="stylesheet" type="text/css" href="css/style.css">--}}
     <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/js.js"></script>
     <script type="text/javascript" src="js/html5slider.js"></script>
@@ -81,13 +81,16 @@
         <audio controls="controls" src="" id="player">
             Your browser does not support the audio element.
         </audio>
-        <a id="dur">Last Duration</a>
-        <a class="button gradient" id="next"></a>
-        <a class="button gradient" id="play" onclick="document.getElementById('player').play()"></a>
-        <a class="button gradient" id="pause" onclick="document.getElementById('player').pause()"></a>
-        <a class="button gradient" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
-        <a class="button gradient" id="vdown" onclick="document.getElementById('player').volume -= 0.1"></a>
-        <a class="button gradient" id="mute" onclick="document.getElementById('player').volume = 0">Mute </a>
+        <div id="controller">
+            <a id="dur">Last Duration</a>
+            <a class="button gradient" id="next">Next</a>
+            <a class="button gradient" id="pause">Pause</a>
+            <a class="button gradient" id="pause">Play</a>
+            <a class="button" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
+            <a class="button" id="vdown" onclick="document.getElementById('player').volume -= 0.1"></a>
+            <a class="button" id="mute" onclick="document.getElementById('player').volume = 0">Mute </a>
+        </div>
     </div>
+<div class="content"></div>
 </body>
 </html>

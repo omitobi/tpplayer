@@ -12,7 +12,7 @@
 $(document).ready( function(){
 //        $('audio').attr('src', 'http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3');
 //        document.getElementById('mlist').options[document.getElementById('mlist').selectedIndex].value
-    var audio = $('#player');
+    var $audio = $('#player');
     var $play = $('#play');
     var $pause = $('#pause');
     var $mute = $('#mute');
@@ -119,14 +119,9 @@ $(document).ready( function(){
             $musicList.val($nextSong).change();
         }
     }
+
     $next.on('click', function () {
-        var $nextSong = $('#mlist option:selected').next().val();
-        if($nextSong == undefined) {
-            $nextSong =  $musicList.find('option:first').prop('selected', 'selected').val();
-            $musicList.val($nextSong).change();
-        }else {
-            $musicList.val($nextSong).change();
-        }
+        nextTrack();
     });
 
     $('#dur').on('click', function () {
@@ -138,11 +133,42 @@ $(document).ready( function(){
 
     });
 
-    $('audio').on('ended', function() {
+
+
+    var $player = document.getElementById('player');
+    playPause();
+    function playPause() {
+        if(!$player.paused){
+            // $('#play').attr('id', 'pause');
+            // div = $("#dummy").html("<a class='button gradient' id='pause'></a>");
+             // $("controller").prepend(div);
+
+        }else {
+            // $('#pause').attr('id', 'play');
+            // div = $("#pause").html("<a class='button gradient' id='play'></a>");
+        }
+    }
+
+
+    $pause.on('click', function () {
+        // alert('Pausing');
+        playPause();
+        $player.pause();
+        // player.pause();
+    });
+
+    $play.on('click', function () {
+        // alert('Pausing');
+        playPause();
+        $player.play();
+        // player.pause();
+    });
+
+    $audio.on('ended', function() {
         nextTrack();
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
-    
+
 });
 
 
