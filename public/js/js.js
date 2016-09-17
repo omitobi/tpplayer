@@ -17,6 +17,7 @@ $(document).ready( function(){
     var $pause = $('#pause');
     var $mute = $('#mute');
     var $next = $('#next');
+    var $prev = $('#prev');
 
 
     var $musicList = $('#mlist');
@@ -24,7 +25,7 @@ $(document).ready( function(){
     var $pageCheck = $('#pageCheck');
 
     var $mPage = "<div class='pageBody'><iframe "+
-        "src='http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/' style='width: 100%; height:500px'>" +
+        "src='http://stansarea.com/Christian/ChristianMusic/RevivalHynms06Ajukebox_files/' style='width: 100%; height:500px'>" +
         "Here</iframe></div>";
     if($('#pageCheck').is(":checked"))
         $(".pageBody").after($mPage);
@@ -110,8 +111,7 @@ $(document).ready( function(){
         playNow();
     });
 
-    function nextTrack() {
-        var $nextSong = $('#mlist option:selected').next().val();
+    function nextTrack($nextSong) {
         if($nextSong == undefined) {
             $nextSong =  $musicList.find('option:first').prop('selected', 'selected').val();
             $musicList.val($nextSong).change();
@@ -121,7 +121,15 @@ $(document).ready( function(){
     }
 
     $next.on('click', function () {
-        nextTrack();
+        var $nextSong = $('#mlist option:selected').next().val();
+        nextTrack($nextSong);
+    });
+
+    $prev.on('click', function () {
+        var $nextSong = $('#mlist option:selected').prev().val();
+        if($nextSong == undefined)
+            $nextSong =  $musicList.find('option:last').prop('selected', 'selected').val();
+        nextTrack($nextSong);
     });
 
     $('#dur').on('click', function () {

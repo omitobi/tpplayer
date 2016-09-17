@@ -14,8 +14,8 @@
 <body>
     <div style="width: 100%">
         <select id="mlist">
-            <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Amazing%20grace.mp3">--- Select Music ---</option>
-            <option value="http://dataup.sdasofia.org/MUSIC/Music-christian/The%20Forester%20Sister/Greatest%20Gospel%20Hits/Precious%20Memories.mp3">Precious Memories</option>
+            <option value="http://stansarea.com/Christian/ChristianMusic/RevivalHynms06Ajukebox_files/Lord%20Have%20Mercy.mp3">--- Select Music ---</option>
+            <option value="http://stansarea.com/Christian/ChristianMusic/RevivalHynms06Ajukebox_files/Yes,%20I%20Know%20--%20Gaither%20Vocal%20Band.mp3">Come Ye Sinners</option>
         </select>
         <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Music!</a>
     </div>
@@ -32,6 +32,7 @@
             <div id="controller">
                 <a id="dur">Last Duration</a>
                 <a class="button gradient" id="next">Next</a>
+                <a class="button gradient" id="prev">Previous</a>
                 <a class="button gradient" id="pause">Pause</a>
                 <a class="button gradient" id="play">Play</a>
                 <a class="button" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
