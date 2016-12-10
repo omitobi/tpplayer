@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Music;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,11 +20,12 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     * @param Music $music
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Music $music)
     {
-        return view('home');
+        $musics = $music->all();
+        return view('home', compact('musics'));
     }
 }

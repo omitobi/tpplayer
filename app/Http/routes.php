@@ -24,3 +24,10 @@ Route::get('/',
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::post('music',
+    [
+        'as' => 'music.add',
+        'uses' => 'MusicsController@addMusic'
+    ]
+);
