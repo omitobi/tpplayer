@@ -20,12 +20,11 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     * @param Music $music
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Music $music)
+    public function index()
     {
-        $musics = $music->all();
-        return view('', compact('musics'));
+        return view('welcome', compact('musics'));
     }
 }

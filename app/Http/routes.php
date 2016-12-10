@@ -19,7 +19,9 @@
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', function () {
+    return view('home');
+});
 Route::get('/', 'HomeController@index');
 
 Route::post('musics',
