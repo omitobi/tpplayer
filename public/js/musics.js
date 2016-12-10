@@ -3,16 +3,16 @@ $(document).ready( function() {
 
     $(player).attr('src', 'http://lgfkc.gcichurches.org/worshipmusic/mp3/Glorious Day (Living He Loved Me).mp3');
 
-    playNow(player);
+    playNow();
 
-    function playNow($playerVar) {
-        $playerVar.play();
+    function playNow() {
+        player.play();
     }
 
     //When the track ends, play again
     player.on('ended', function() {
-        $(player).attr('src', 'http://lgfkc.gcichurches.org/worshipmusic/mp3/Glorious Day (Living He Loved Me).mp3');
-        playNow(player);
+        playNow();
+        // $musicList.val($('#mlist option:selected').next().val()).change();
     });
 
 });

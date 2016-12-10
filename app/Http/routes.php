@@ -37,3 +37,12 @@ Route::get('musics',
         'uses' => 'MusicsController@getAllMusic'
     ]
 );
+
+Route::get('oldmusic',
+    [
+        'as' => 'show.musics',
+        function(){
+            return view('includes.welcome');
+        }
+    ]
+);
