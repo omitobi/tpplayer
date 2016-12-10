@@ -15,20 +15,23 @@
 //    return view('welcome');
 //});
 
-Route::get('/',
-    [
-        'as' => 'home',
-        'uses' => 'MusicsController@getAllMusic'
-    ]
-);
+
 
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
-Route::post('music',
+Route::post('musics',
     [
         'as' => 'music.add',
         'uses' => 'MusicsController@addMusic'
+    ]
+);
+
+Route::get('musics',
+    [
+        'as' => 'show.musics',
+        'uses' => 'MusicsController@getAllMusic'
     ]
 );

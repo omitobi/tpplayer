@@ -26,6 +26,6 @@ class HomeController extends Controller
     public function index(Music $music)
     {
         $musics = $music->all();
-        return view('welcome', compact('musics'));
+        return view('', compact('musics'));
     }
 }

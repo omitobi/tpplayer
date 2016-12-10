@@ -9,9 +9,6 @@
 
                 <div class="panel-body">
                     <h1>You are logged in!</h1>
-                    @include('includes.set')
-                    @include('includes.tool')
-                    @include('includes.list')
                 </div>
             </div>
         </div>

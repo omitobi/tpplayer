@@ -17,7 +17,7 @@ class MusicsController extends Controller
     }
     public function getAllMusic(Music $music){
         $musics =  $music->all();
-        return view('welcome', compact($musics));
+        return view('musics.index', ['musics' => $musics]);
     }
 
     public function addMusic(User $user, Request $request)
