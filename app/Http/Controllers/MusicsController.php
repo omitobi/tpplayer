@@ -16,19 +16,26 @@ class MusicsController extends Controller
 
     }
     public function getAllMusic(Music $music){
-        return $music->all();
+        $musics =  $music->all();
+        return view('welcome', compact($musics));
     }
 
-    public function addMusic(Music $music, Request $request)
+    public function addMusic(User $user, Request $request)
     {
         if(Auth::guest())
         {
             $newMusic = $this->separateMusic($request);
+            $music = new Music($newMusic->all());
+            $music->save();
             // do what you need to do
         } else{
             $newMusic = $this->separateMusic($request, false);
+            $music = new Music($newMusic->all());
+            $music->save();
         }
-        $music->save($newMusic);
+//        return $newMusic->all();
+
+
         return back();
     }
 
@@ -39,10 +46,9 @@ class MusicsController extends Controller
                 'link' => 'bail|required|unique:musics|min:18'
             ]
         );
-
-        $url = $request->link;
-        $requestNew['link'] = urldecode($url);
-        $name =  pathinfo($url);
+        $requestNew = $request;
+        $requestNew['link'] = urldecode($request->link);
+        $name =  pathinfo($request->link);
         $requestNew['name'] = urldecode( $name['filename'] );
         $requestNew['duration'] = '00:00';
         $requestNew['user_id'] = $public ? 0 : $request->user()->id;

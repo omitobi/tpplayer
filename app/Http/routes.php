@@ -16,10 +16,11 @@
 //});
 
 Route::get('/',
-    ['as' => 'home',
-    function () {
-    return view('welcome');
-}]);
+    [
+        'as' => 'home',
+        'uses' => 'MusicsController@getAllMusic'
+    ]
+);
 
 Route::auth();
 
