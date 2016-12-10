@@ -22,6 +22,13 @@ class MusicsController extends Controller
 
     public function addMusic(User $user, Request $request)
     {
+        //todo: validate if its an mp3
+        $this->validate($request,
+            [
+                'link' => 'bail|required|unique:musics|min:18'
+            ]
+        );
+        
         if(Auth::guest())
         {
             $newMusic = $this->separateMusic($request);
@@ -40,12 +47,7 @@ class MusicsController extends Controller
     }
 
     public function separateMusic($request, $public = true){
-        //todo: validate if its an mp3
-        $this->validate($request,
-            [
-                'link' => 'bail|required|unique:musics|min:18'
-            ]
-        );
+
         $requestNew = $request;
         $requestNew['link'] = urldecode($request->link);
         $name =  pathinfo($request->link);
