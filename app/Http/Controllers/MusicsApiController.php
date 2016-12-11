@@ -14,4 +14,8 @@ class MusicsApiController extends Controller
         $musics =  $music->all();
         return $musics;
     }
+
+    public function getOne(Music $music){
+        return $music;
+    }
 }
