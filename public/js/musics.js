@@ -14,9 +14,25 @@ $(document).ready( function() {
         player.play();
     }
 
+    IDs = [];
+    $("#fullList").find("tr") .each(
+        function(){
+            IDs.push(this.id);
+        });
+    // alert(IDs);
+
     //When the track ends, play again
     $(player).on('ended', function() {
-        playNow(playlist[1]);
+        alert('hurray!');
+        for(j=0; j<IDs.length; j++){
+            if($('#'.concat(IDs[j])).hasClass('active')){
+                alert('yeah'.concat('#'.concat(IDs[j])));
+                $( '#'.concat(IDs[j]) ).removeClass('active');
+                $( '#'.concat(IDs[j]) ).next().addClass('active');
+                break;
+            }
+        }
+        playNext();
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
 
