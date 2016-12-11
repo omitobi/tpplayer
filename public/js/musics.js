@@ -10,9 +10,29 @@ $(document).ready( function() {
     }
 
     //When the track ends, play again
-    player.on('ended', function() {
+    $(player).on('ended', function() {
         playNow();
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
+
+    $('.loadAll').on('click', function () {
+        // alert('yes');
+        $.ajax({
+            url: '/api/musics',
+            type: 'get',
+            dataType: 'json',
+            // beforeSend: function () {
+            //     if (!$modal.find('.dimmer').hasClass('active')) {
+            //         $modal.find('.dimmer').addClass('active');
+            //     }
+            // },
+            success: function(data) {
+                alert(data[1].link);
+            },
+            error: "something"
+        });
+
+    });
+
 
 });

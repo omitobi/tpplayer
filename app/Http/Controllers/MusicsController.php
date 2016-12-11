@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class MusicsController extends Controller
 {
     //
-    public function index(){
-
-    }
     public function getAllMusic(Music $music){
         $musics =  $music->all();
         return view('musics.index', ['musics' => $musics]);

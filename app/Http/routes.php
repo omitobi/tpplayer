@@ -46,3 +46,10 @@ Route::get('oldmusic',
         }
     ]
 );
+
+Route::get('api/musics',
+    [
+        'as' => 'api.musics',
+        'uses' => 'MusicsApiController@getAll'
+    ]
+);

@@ -7,14 +7,15 @@
             Your browser does not support the audio element.
         </audio>
         <div id="controller">
-            <a id="dur">Last Duration</a>
+            {{--<a id="dur">Last Duration</a>--}}
             <a class="button gradient" id="next">Next</a>
             <a class="button gradient" id="prev">Previous</a>
             <a class="button gradient" id="pause">Pause</a>
             <a class="button gradient" id="play">Play</a>
-            <a class="button" id="vup" onclick="document.getElementById('player').volume += 0.1"></a>
-            <a class="button" id="vdown" onclick="document.getElementById('player').volume -= 0.1"></a>
+            <a class="button" id="vup" onclick="document.getElementById('player').volume += 0.1">Up</a>
+            <a class="button" id="vdown" onclick="document.getElementById('player').volume -= 0.1">Dwn</a>
             <a class="button" id="mute" onclick="document.getElementById('player').volume = 0">Mute </a>
+            <a class="button loadAll" style="cursor: auto">All</a>
         </div>
     </div>
 </div>
