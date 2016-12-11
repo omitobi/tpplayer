@@ -9,7 +9,7 @@
         </thead>
         <tbody id="fullList">
         @foreach($musics as $music)
-        <tr>
+        <tr id="m{{ $music->id }}">
             <td>{{$music->name}}</td>
             <td>{{$music->link}}</td>
             <td>{{$music->duration}}</td>
