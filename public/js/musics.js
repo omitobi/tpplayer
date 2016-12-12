@@ -45,23 +45,39 @@ $(document).ready( function() {
         for(k=0; k<IDs.length; k++){
             if($('#'.concat(IDs[k])).hasClass('active')){
                 console.log('yeah playing next'.concat('#'.concat(IDs[k])));
-                $( '#'.concat(IDs[k]) ).removeClass('active');
-                $( '#'.concat(IDs[k]) ).next().addClass('active');
-                break;
+                if(!$('#fullList #'.concat(IDs[k])).is(":last-child")) {
+                    $('#'.concat(IDs[k])).removeClass('active');
+                    $('#'.concat(IDs[k])).next().addClass('active');
+                    break;
+                }else {
+                    $( '#'.concat(IDs[k]) ).removeClass('active');
+                    playFirst();
+                    break;
+                }
+
             }
         }
+
+
     }
 
     function setPrev(){
         for(k=(IDs.length-1); k>=0; k--){
             if($('#'.concat(IDs[k])).hasClass('active')){
                 console.log('yeah Previous next'.concat('#'.concat(IDs[k])));
+                if(!$('#fullList #'.concat(IDs[k])).is(":first-child")) {
                 $( '#'.concat(IDs[k]) ).removeClass('active');
                 $( '#'.concat(IDs[k]) ).prev().addClass('active');
                 break;
+            }else{
+                    $( '#'.concat(IDs[k]) ).removeClass('active');
+                    playLast();
+                    break;
+                }
             }
         }
     }
+
     // isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp33/Glorious Day (Living He Loved Me).mp3');
     // function isWorkingMusic($src) {
     //     $(player).attr('src', $src);
@@ -124,9 +140,20 @@ $(document).ready( function() {
         playNext();
     });
 
-    var first = $("#fullList").find('tr')[0];
-    $(first).addClass('active');
-    playNext();
+    function playLast() {
+        var first = $("#fullList").find('tr').last();
+        $(first).addClass('active');
+        playNext();
+    }
+
+    function playFirst() {
+        var first = $("#fullList").find('tr')[0];
+        $(first).addClass('active');
+        playNext();
+    }
+
+    playFirst();
+
     function playNext() {
         var ID = $("#fullList").find("tr.active").attr('id')[1];
         $.ajax({
