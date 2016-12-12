@@ -35,7 +35,13 @@ $(document).ready( function() {
         playNext();
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
-
+    isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp311/Glorious Day (Living He Loved Me).mp3');
+    function isWorkingMusic($url) {
+        $.ajax( $url )
+            .always(function (jqXHR) {
+                    console.log(jqXHR.status);
+                });
+    }
 
     // function makePlayList() {
     //     // alert('yes');

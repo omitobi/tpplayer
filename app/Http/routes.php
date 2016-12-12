@@ -64,3 +64,10 @@ Route::get('api/musics/{music}',
         'uses' => 'MusicsApiController@getOne'
     ]
 );
+
+Route::get('api/okay',
+    [
+        'as' => 'api.music.one',
+        'uses' => 'MusicsApiController@isWorkingLink'
+    ]
+);
