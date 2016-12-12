@@ -40,7 +40,7 @@ Route::get('musics',
 
 Route::get('oldmusic',
     [
-        'as' => 'show.musics',
+        'as' => 'show.old.musics',
         function(){
             return view('includes.welcome');
         }
