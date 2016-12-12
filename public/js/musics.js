@@ -1,8 +1,8 @@
 $(document).ready( function() {
     var player = document.getElementById('player');
 
-    // $(player).attr('src', 'http://lgfkc.gcichurches.org/worshipmusic/mp3/Glorious Day (Living He Loved Me).mp3');
-
+    // // $(player).attr('src', 'http://lgfkc.gcichurches.org/worshipmusic/mp3/Glorious Day (Living He Loved Me).mp3');
+    //
     // playNow();
     // var $playlist = getMusics();
     // console.log($playlist);
@@ -33,15 +33,30 @@ $(document).ready( function() {
             }
         }
         playNext();
+        // $(player).on("error", function (e) {
+        //     playNext();
+        //     return false;
+        // });
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
-    isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp311/Glorious Day (Living He Loved Me).mp3');
-    function isWorkingMusic($url) {
-        $.ajax( $url )
-            .always(function (jqXHR) {
-                    console.log(jqXHR.status);
-                });
-    }
+    // isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp33/Glorious Day (Living He Loved Me).mp3');
+    // function isWorkingMusic($src) {
+    //     $(player).attr('src', $src);
+    //
+    //     // try {
+    //     //     $('#player').play();
+    //     // } catch (e) {
+    //     //     alert("Error playing file!");
+    //     // }
+    //
+    //     $(player).on("error", function (e) {
+    //         alert('error');
+    //         return false;
+    //     });
+    //     alert('playing...');
+    //     return true;
+    // }
+
 
     // function makePlayList() {
     //     // alert('yes');
@@ -75,7 +90,8 @@ $(document).ready( function() {
     //     });
     // }
     // alert($("#fullList").find("#m5").text());
-    $("#fullList").find("#m6").addClass('active');
+    var first = $("#fullList").find('tr')[0];
+    $(first).addClass('active');
     playNext();
     function playNext() {
         var ID = $("#fullList").find("tr.active").attr('id')[1];
