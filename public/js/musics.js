@@ -23,15 +23,16 @@ $(document).ready( function() {
 
     //When the track ends, play again
     $(player).on('ended', function() {
-        alert('hurray!');
-        for(j=0; j<IDs.length; j++){
-            if($('#'.concat(IDs[j])).hasClass('active')){
-                alert('yeah'.concat('#'.concat(IDs[j])));
-                $( '#'.concat(IDs[j]) ).removeClass('active');
-                $( '#'.concat(IDs[j]) ).next().addClass('active');
-                break;
-            }
-        }
+        // alert('hurray!');
+        // for(j=0; j<IDs.length; j++){
+        //     if($('#'.concat(IDs[j])).hasClass('active')){
+        //         alert('yeah'.concat('#'.concat(IDs[j])));
+        //         $( '#'.concat(IDs[j]) ).removeClass('active');
+        //         $( '#'.concat(IDs[j]) ).next().addClass('active');
+        //         break;
+        //     }
+        // }
+        setNext();
         playNext();
         // $(player).on("error", function (e) {
         //     playNext();
@@ -39,6 +40,17 @@ $(document).ready( function() {
         // });
         // $musicList.val($('#mlist option:selected').next().val()).change();
     });
+
+    function setNext(){
+        for(k=0; k<IDs.length; k++){
+            if($('#'.concat(IDs[k])).hasClass('active')){
+                console.log('yeah playing next'.concat('#'.concat(IDs[k])));
+                $( '#'.concat(IDs[k]) ).removeClass('active');
+                $( '#'.concat(IDs[k]) ).next().addClass('active');
+                break;
+            }
+        }
+    }
     // isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp33/Glorious Day (Living He Loved Me).mp3');
     // function isWorkingMusic($src) {
     //     $(player).attr('src', $src);
@@ -90,6 +102,12 @@ $(document).ready( function() {
     //     });
     // }
     // alert($("#fullList").find("#m5").text());
+
+    $("#controller").find('#next').on('click', function () {
+        setNext();
+        playNext();
+    });
+
     var first = $("#fullList").find('tr')[0];
     $(first).addClass('active');
     playNext();
