@@ -1,6 +1,6 @@
 <div id="list" class="pull-right" style="width: 60%">
-    <table class="table table-striped">
-        <thead>
+    <table class="table">
+        <thead class="thead-inverse">
         <tr>
             <th>Name </th>
             <th>Link</th>
