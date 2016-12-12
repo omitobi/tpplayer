@@ -15,6 +15,7 @@
             <a class="btn btn-primary" id="vup" onclick="document.getElementById('player').volume += 0.1">^</a>
             <a class="btn btn-success" id="vdown" onclick="document.getElementById('player').volume -= 0.1">v</a>
             <a class="btn btn-danger" id="mute" onclick="document.getElementById('player').volume = 0">(X)</a>
+            <a class="btn btn-danger" id="unmute" onclick="document.getElementById('player').volume = 1">(&gt;)</a>
             {{--<a class="button loadAll" style="cursor: auto">All</a>--}}
         </div>
     </div>
