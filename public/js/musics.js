@@ -51,6 +51,17 @@ $(document).ready( function() {
             }
         }
     }
+
+    function setPrev(){
+        for(k=(IDs.length-1); k>=0; k--){
+            if($('#'.concat(IDs[k])).hasClass('active')){
+                console.log('yeah Previous next'.concat('#'.concat(IDs[k])));
+                $( '#'.concat(IDs[k]) ).removeClass('active');
+                $( '#'.concat(IDs[k]) ).prev().addClass('active');
+                break;
+            }
+        }
+    }
     // isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp33/Glorious Day (Living He Loved Me).mp3');
     // function isWorkingMusic($src) {
     //     $(player).attr('src', $src);
@@ -105,6 +116,11 @@ $(document).ready( function() {
 
     $("#controller").find('#next').on('click', function () {
         setNext();
+        playNext();
+    });
+
+    $("#controller").find('#prev').on('click', function () {
+        setPrev();
         playNext();
     });
 
