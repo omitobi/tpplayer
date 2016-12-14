@@ -155,13 +155,16 @@ $(document).ready( function() {
     playFirst();
 
     function playNext() {
-        var ID = $("#fullList").find("tr.active").attr('id')[1];
+        var mId = $("#fullList").find("tr.active").attr('id');
+        var ID = mId.split("m").pop();
         console.log(ID);
+        document.title = "TP_PLayer";
         $.ajax({
             url: '/api/musics/'.concat(ID),
             type: 'get',
             dataType: 'json',
             success: function (data) {
+                document.title = document.title.concat(" - (Playing) ").concat(data.name);
                 playNow(data.link);
             },
             error: 'something went wrong!'
