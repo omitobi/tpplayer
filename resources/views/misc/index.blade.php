@@ -18,6 +18,7 @@
                 </ul>
             <li class="list-group-item">Fix music not playing after 9, goes back to 1</li>
             <li class="list-group-item">Import multiple music links</li>
+            <li class="list-group-item">Search music by name [ On the page or all music ]</li>
             <li class="list-group-item">Random selection of next music</li>
             <li class="list-group-item">Make a playlist</li>
             <li class="list-group-item">Reorder the way music are listed</li>
@@ -34,6 +35,9 @@
             <li>Maybe with Ionic, Send player to Android</li>
             <li>Integrate with Google, Apple, and other music API, to form one playlist</li>
             <li>Search music link to add by Name (and use algorithmic search suggest the found links and from where</li>
+            <li>Request access to music link added by another user, and only you and the user can access the link</li>
+            <li>Can allow other users (or a particular user/users have access to the link ONLY) or Everybody</li>
+            <li>A previously public links, should can be customized for all users (can be taken away from public when a user customizes it)</li>
         </ul>
     </div>
 </body>
