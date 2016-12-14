@@ -15,6 +15,8 @@
                     <li class="list-group-item active">Fix music not playing after 9, goes back to 1</li>
                     <li class="list-group-item">Verify & Validate the id of the music for getOneMusic endpoint</li>
                     <li class="list-group-item">Add Music Link without reloading page (Ajax) </li>
+                    <li>Readjust the music list table to show appropriately even on mobile</li>
+                    <li>Add stop button</li>
                 </ul>
             <li class="list-group-item">Update music links</li>
                 <ul >
@@ -28,6 +30,7 @@
                     </ul>
                 </ul>
             <li class="list-group-item">Import multiple music links</li>
+            <li class="list-group-item">Resume from where you left when you log In</li>
             <li class="list-group-item">Search music by name [ On the page or all music ]</li>
             <li class="list-group-item">Random selection of next music</li>
             <li class="list-group-item">Make a playlist</li>
