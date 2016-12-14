@@ -156,6 +156,7 @@ $(document).ready( function() {
 
     function playNext() {
         var ID = $("#fullList").find("tr.active").attr('id')[1];
+        console.log(ID);
         $.ajax({
             url: '/api/musics/'.concat(ID),
             type: 'get',
