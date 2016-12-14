@@ -10,13 +10,18 @@
     <div class="container">
         <h1 class="">TP_PLayer Todos!</h1>
         <ul class="list-group">
+            <li class="list-group-item">FIXES</li>
+                <ul>
+                    <li class="list-group-item active">Fix music not playing after 9, goes back to 1</li>
+                    <li class="list-group-item">Verify & Validate the id of the music for getOneMusic endpoint</li>
+                    <li class="list-group-item"></li>
+                </ul>
             <li class="list-group-item">Update music links</li>
                 <ul >
                     <li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">14</span>Be able to delete Music link (only their music)</li>
                     <li class="list-group-item">Be able to edit the link, name and other info about the music(<b>Can do so as well for public music, only duration and others can be updated</b>)</li>
                     <li class="list-group-item"></li>
                 </ul>
-            <li class="list-group-item">Fix music not playing after 9, goes back to 1</li>
             <li class="list-group-item">Import multiple music links</li>
             <li class="list-group-item">Search music by name [ On the page or all music ]</li>
             <li class="list-group-item">Random selection of next music</li>
