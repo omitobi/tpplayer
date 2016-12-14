@@ -71,3 +71,16 @@ Route::get('api/okay',
         'uses' => 'MusicsApiController@isWorkingLink'
     ]
 );
+
+/**
+ * Miscalleneous
+ */
+
+Route::get('misc',
+    [
+        'as' => 'misc.todo',
+        function(){
+            return view('misc.index');
+        }
+    ]
+);
