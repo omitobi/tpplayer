@@ -17,6 +17,10 @@ class MusicsController extends Controller
         return view('musics.index', ['musics' => $musics]);
     }
 
+    public function editOne(Music $music){
+        return view('musics.edit', compact($music));
+    }
+
     public function addMusic(User $user, Request $request)
     {
         //todo: validate if its an mp3
@@ -42,6 +46,8 @@ class MusicsController extends Controller
 
         return back();
     }
+    
+    
 
     public function separateMusic($request, $public = true){
 

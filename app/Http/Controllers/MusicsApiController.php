@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Music;
+use App\User;
 use Illuminate\Http\Request;
 use GuzzleHttp;
 
@@ -21,6 +22,11 @@ class MusicsApiController extends Controller
         return $music;
     }
 
+    public function updateOne(Request $request, Music $music){
+        //todo: validate and verify incoming request
+        $updated = $music->update($request->all());
+        return $updated;
+    }
     public function isWorkingLink(){
 
         $link = Input::get('link');
