@@ -13,9 +13,8 @@
                         {{--Edit form--}}
                         <div class="h1">Update the Music</div>
                         <div class="col-lg-10 container">
-                            <form action="/api/musics/update/{{ $music->id }}" method="post">
-                                {{ csrf_field() }}
-                                {{ method_field('PATCH') }}
+                            {{--/api/musics/update/{{ $music->id }}--}}
+                            <form class="update-form">
                                 <div class="form-group">
                                     <label for="name">Name :</label>
                                     <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ $music->name }}">
@@ -24,11 +23,12 @@
                                     <label for="duration">Duration</label>
                                     <input type="text" name="duration" class="form-control {{ $errors->has('duration') ? 'has-error' : '' }}" value="{{ $music->duration }}">
                                 </div>
-                                <input type="submit" value="Update!" class="btn btn-primary">
+                                <input type="submit" value="Update!" class="btn btn-primary updater" >
                                 @foreach($errors->all() as $error)
                                     <i class="alert-danger"> {{ $error }} </i>
                                 @endforeach
-
+                                {{ csrf_field() }}
+                                {{ method_field('PATCH') }}
                             </form>
                             <div class="nv-indexLine"></div>
 
