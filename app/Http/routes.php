@@ -38,7 +38,7 @@ Route::get('musics',
     ]
 );
 
-Route::get('musics/update',
+Route::get('musics/{music}/edit',
     [
         'as' => 'musics.edit',
         'uses' => 'MusicsController@editOne'
