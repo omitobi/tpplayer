@@ -24,9 +24,9 @@ class MusicsApiController extends Controller
 
     public function updateOne(Request $request, Music $music){
         //todo: validate and verify incoming request
-        $response = json_encode(['errors' => 'Not successfully updated']);
+        $response = json_encode(['result' =>'errors', 'message' =>'Not successfully updated']);
         if($updated = $music->update($request->all())){
-            $response = json_encode(['success' => 'Successfully Updated']);
+            $response = json_encode(['result' =>'success', 'message' => 'Successfully Updated']);
         }
         return $response;
     }

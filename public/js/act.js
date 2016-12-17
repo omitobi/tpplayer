@@ -9,6 +9,7 @@ $(document).ready( function() {
     $(".update-form").on('submit', function (e) {
         e.preventDefault();
         console.log(this.id.value);
+        $this = $(this);
         // formData.push({_token: $(this).find("input[name='_token']")});
         // formData.push({_token: $(this).find("input[name='_token']")});
         $.ajax({
@@ -23,7 +24,22 @@ $(document).ready( function() {
                 _method: this._method.value
             },
             success: function (response) {
-                alert('success!!!');
+                response = JSON.parse(response);
+                if(response.result === 'success'){
+                    $this.find('#update-btn').notify(
+                        response.message,
+                        "success"
+                    );
+                    setTimeout(function(){
+                        window.location = '/musics';
+                    },1500);
+
+                } else {
+                    $this.find('#update-btn').notify(
+                        response.message,
+                        "failure"
+                    );
+                }
                 // if (typeof response.error !== 'undefined'){
                 //
                 // }

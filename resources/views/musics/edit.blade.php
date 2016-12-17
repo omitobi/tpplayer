@@ -27,7 +27,7 @@
                                     <label for="duration">Duration</label>
                                     <input type="text" name="duration" class="form-control {{ $errors->has('duration') ? 'has-error' : '' }}" value="{{ $music->duration }}">
                                 </div>
-                                <input type="submit" value="Update!" class="btn btn-primary updater" >
+                                <input type="submit" value="Update!" class="btn btn-primary updater" id="update-btn" >
                                 @foreach($errors->all() as $error)
                                     <i class="alert-danger"> {{ $error }} </i>
                                 @endforeach
