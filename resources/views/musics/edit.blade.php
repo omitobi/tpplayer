@@ -14,8 +14,12 @@
                         <div class="h1">Update the Music</div>
                         <div class="col-lg-10 container">
                             {{--/api/musics/update/{{ $music->id }}--}}
+
                             <form class="update-form">
                                 <div class="form-group">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PATCH') }}
+                                    <input type="hidden" name="id" value="{{ $music->id }}">
                                     <label for="name">Name :</label>
                                     <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ $music->name }}">
                                     <label for="link">Link :</label>
@@ -27,8 +31,6 @@
                                 @foreach($errors->all() as $error)
                                     <i class="alert-danger"> {{ $error }} </i>
                                 @endforeach
-                                {{ csrf_field() }}
-                                {{ method_field('PATCH') }}
                             </form>
                             <div class="nv-indexLine"></div>
 

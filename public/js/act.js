@@ -8,18 +8,25 @@ $(document).ready( function() {
 
     $(".update-form").on('submit', function (e) {
         e.preventDefault();
-        var formData = $(this).serializeArray();
+        console.log(this.id.value);
+        // formData.push({_token: $(this).find("input[name='_token']")});
+        // formData.push({_token: $(this).find("input[name='_token']")});
         $.ajax({
-            type: "PATCH",
-            url: "/api/musics/update",
-            dataType: "json",
+            type: "POST",
+            url: "/api/musics/"+this.id.value,
             cache: false,
-            data: { formData },
+            data: {
+                name: this.name.value,
+                link: this.link.value,
+                duration: this.duration.value,
+                _token: this._token.value,
+                _method: this._method.value
+            },
             success: function (response) {
                 alert('success!!!');
-                if (typeof response.error !== 'undefined'){
-
-                }
+                // if (typeof response.error !== 'undefined'){
+                //
+                // }
             }
         });
 

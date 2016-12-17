@@ -65,7 +65,7 @@ Route::get('api/musics',
     ]
 );
 
-Route::patch('api/musics',
+Route::patch('api/musics/{music}',
     [
         'as' => 'api.music.update',
         'uses' => 'MusicsApiController@updateOne'
