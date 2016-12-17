@@ -16,6 +16,10 @@ class MusicsController extends Controller
         $musics =  $music->all();
         return view('musics.index', ['musics' => $musics]);
     }
+    
+    public function editOne(Music $music){
+        return view('musics.edit', ['music' => $music]);
+    }
 
     public function addMusic(User $user, Request $request)
     {
@@ -42,6 +46,8 @@ class MusicsController extends Controller
 
         return back();
     }
+    
+    
 
     public function separateMusic($request, $public = true){
 

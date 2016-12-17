@@ -1,4 +1,4 @@
-<div id="list" class="pull-right" style="width: 60%">
+<div id="list" class="col-lg-3" style="width: 60%">
     <table class="table">
         <thead class="thead-inverse">
         <tr>
