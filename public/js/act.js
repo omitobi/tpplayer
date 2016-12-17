@@ -10,8 +10,6 @@ $(document).ready( function() {
         e.preventDefault();
         console.log(this.id.value);
         $this = $(this);
-        // formData.push({_token: $(this).find("input[name='_token']")});
-        // formData.push({_token: $(this).find("input[name='_token']")});
         $.ajax({
             type: "POST",
             url: "/api/musics/"+this.id.value,
@@ -37,7 +35,7 @@ $(document).ready( function() {
                 } else {
                     $this.find('#update-btn').notify(
                         response.message,
-                        "failure"
+                        "error"
                     );
                 }
                 // if (typeof response.error !== 'undefined'){
