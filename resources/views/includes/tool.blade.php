@@ -1,6 +1,6 @@
 <div class="col-lg-3" style="width: 300px; ">
     <div>
-        <div style="width: 280px; height: 300px; background-image:url('images/cover.jpg')">
+        <div style="width: 300px; height: 300px; background-image:url('images/cover.jpg')">
 
         </div>
         <audio controls="controls" id="player" style="width: @parent">

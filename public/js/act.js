@@ -29,7 +29,7 @@ $(document).ready( function() {
                         "success"
                     );
                     setTimeout(function(){
-                        window.location = '/musics';
+                        location.replace ('/musics');
                     },1500);
 
                 } else {

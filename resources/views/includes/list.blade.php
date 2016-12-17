@@ -2,7 +2,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Name </th>
+            <th style="min-width: 100px">Name </th>
             <th>Link</th>
             <th style="width: 10px">Available</th>
             @if(!Auth::guest())<th></th>@endif
