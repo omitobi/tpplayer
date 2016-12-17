@@ -18,6 +18,10 @@ class MusicsController extends Controller
     }
     
     public function editOne(Music $music){
+        if(Auth::guest())
+        {
+            return redirect('/');
+        }
         return view('musics.edit', ['music' => $music]);
     }
 
