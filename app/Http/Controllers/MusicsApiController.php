@@ -25,7 +25,7 @@ class MusicsApiController extends Controller
         return $music;
     }
 
-    public function addMusic(User $user, Request $request)
+    public function addMusic(Request $request)
     {
         $response = json_encode(['result' =>'errors', 'message' =>'Error when Saving']);
         //todo: validate if its an mp3
@@ -44,10 +44,10 @@ class MusicsApiController extends Controller
         }
 
         if(Auth::check()) {
-//            $userId =   Auth::user()->id;
             $newMusic = $this->separateMusic($request);
+            $newMusic['user_id'] = Auth::user()->id;
             $music = new Music($newMusic->all());
-            if($user->music()->save($music)){
+            if($music->save()){
                 $response = json_encode(['result' =>'success', 'message' => 'Successfully Added new Music!']);
             }
             return $response;
