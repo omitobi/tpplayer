@@ -32,7 +32,7 @@ class MusicsApiController extends Controller
 
 
         $v = Validator::make($request->all(),  [
-            'link' => 'bail|required|unique:musics|min:18'
+            'link' => 'bail|required|active_url|unique:musics,link|min:18'
         ]);
 
         if ($v->fails())
@@ -42,7 +42,7 @@ class MusicsApiController extends Controller
                     ['result' =>'errors', 'message' => $v->errors()->all()[0]] //returns the errors for the link
                 );
         }
-        
+
         if(Auth::check()) {
 //            $userId =   Auth::user()->id;
             $newMusic = $this->separateMusic($request);

@@ -8,7 +8,6 @@ $(document).ready( function() {
 
     $(".update-form").on('submit', function (e) {
         e.preventDefault();
-        console.log(this.id.value);
         $this = $(this);
         $.ajax({
             type: "POST",
@@ -49,8 +48,8 @@ $(document).ready( function() {
 
     $(".new-music").on('submit', function (e) {
         e.preventDefault();
-        var url = this.route.value;
-        alert(url);
+        // var url = this.route.value;
+        $this = $(this);
         $.ajax({
             type: "POST",
             url: "/api/musics",
@@ -61,22 +60,18 @@ $(document).ready( function() {
             },
             success: function (response) {
                 response = JSON.parse(response);
-                console.log(response);
-                // if(response.result === 'success'){
-                //     $this.find('#update-btn').notify(
-                //         response.message,
-                //         "success"
-                //     );
-                //     setTimeout(function(){
-                //         location.replace ('/musics');
-                //     },1500);
-                //
-                // } else {
-                //     $this.find('#update-btn').notify(
-                //         response.message,
-                //         "error"
-                //     );
-                // }
+                if(response.result === 'success'){
+                    $this.find('.form-control').notify(
+                        response.message,
+                        "success"
+                    );
+
+                } else {
+                    $this.find('.form-control').notify(
+                        response.message,
+                        "error", { position:"right" }
+                    );
+                }
                 // if (typeof response.error !== 'undefined'){
                 //
                 // }
