@@ -45,8 +45,44 @@ $(document).ready( function() {
         });
 
     });
-    
 
+
+    $(".new-music").on('submit', function (e) {
+        e.preventDefault();
+        var url = this.route.value;
+        alert(url);
+        $.ajax({
+            type: "POST",
+            url: "/api/musics",
+            cache: false,
+            data: {
+                link: this.link.value,
+                _token: this._token.value
+            },
+            success: function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                // if(response.result === 'success'){
+                //     $this.find('#update-btn').notify(
+                //         response.message,
+                //         "success"
+                //     );
+                //     setTimeout(function(){
+                //         location.replace ('/musics');
+                //     },1500);
+                //
+                // } else {
+                //     $this.find('#update-btn').notify(
+                //         response.message,
+                //         "error"
+                //     );
+                // }
+                // if (typeof response.error !== 'undefined'){
+                //
+                // }
+            }
+        });
+    });
 
     // $.ajax({
     //     type: "PATCH",

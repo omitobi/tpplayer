@@ -79,6 +79,12 @@ Route::get('api/musics/{music}',
     ]
 );
 
+Route::post('api/musics',
+    [
+        'as' => 'api.music.add',
+        'uses' => 'MusicsApiController@addMusic'
+    ]
+);
 
 Route::get('api/okay',
     [
