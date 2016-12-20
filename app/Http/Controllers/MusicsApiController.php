@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Validator;
 class MusicsApiController extends Controller
 {
     //
-    public function getAll(Music $music){
-        $musics =  $music->all();
+    public function getAll()
+    {
+        $musics = Music::all()->where('user_id', 0);
+        if(Auth::check()) $musics =  Music::all();
         return $musics;
     }
 
@@ -48,7 +50,9 @@ class MusicsApiController extends Controller
             $newMusic['user_id'] = Auth::user()->id;
         }
 
+        if(Auth::guest()){ $newMusic['user_id'] = 0; }
         $music = new Music($newMusic->all());
+        
         if ($music->save()) {
                 $response = json_encode(['result' => 'success',
                     'message' => 'Successfully Added new Music!',
@@ -81,14 +85,23 @@ class MusicsApiController extends Controller
         return $code;
     }
 
-    public function separateMusic($request, $public = true){
+    public function separateMusic($request){
 
         $requestNew = $request;
         $requestNew['link'] = urldecode($request->link);
         $name =  pathinfo($request->link);
         $requestNew['name'] = urldecode( $name['filename'] );
         $requestNew['duration'] = '00:00';
-        if(Auth::guest()){ $requestNew['user_id'] = 0; }
         return $requestNew;
+    }
+
+    public function arrangeSafeResponse($request)
+    {
+        $allowed = ['id','name', 'link', 'duration'];
+
+        if(Auth::guest())
+        {
+
+        }
     }
 }
