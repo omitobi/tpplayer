@@ -170,4 +170,17 @@ $(document).ready( function() {
             error: 'something went wrong!'
         });
     }
+    // makePlayList();
+    function makePlayList() {
+        var list = [];
+        $.ajax({
+            url: '/api/musics',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                // console.log(data);
+            },
+            error: 'something went wrong!'
+        });
+    }
 });

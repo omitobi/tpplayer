@@ -8,25 +8,86 @@ $(document).ready( function() {
 
     $(".update-form").on('submit', function (e) {
         e.preventDefault();
-        var formData = $(this).serializeArray();
+        $this = $(this);
         $.ajax({
-            type: "PATCH",
-            url: "/api/musics/update",
-            dataType: "json",
+            type: "POST",
+            url: "/api/musics/"+this.id.value,
             cache: false,
-            data: { formData },
+            data: {
+                name: this.name.value,
+                link: this.link.value,
+                duration: this.duration.value,
+                _token: this._token.value,
+                _method: this._method.value
+            },
             success: function (response) {
-                alert('success!!!');
-                if (typeof response.error !== 'undefined'){
+                response = JSON.parse(response);
+                if(response.result === 'success'){
+                    $this.find('#update-btn').notify(
+                        response.message,
+                        "success"
+                    );
+                    setTimeout(function(){
+                        location.replace ('/musics');
+                    },1500);
 
+                } else {
+                    $this.find('#update-btn').notify(
+                        response.message,
+                        "error"
+                    );
                 }
+                // if (typeof response.error !== 'undefined'){
+                //
+                // }
             }
         });
 
     });
+
+
+    $(".new-music").on('submit', function (e) {
+        e.preventDefault();
+        // var url = this.route.value;
+        $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: "/api/musics",
+            cache: false,
+            data: {
+                link: this.link.value,
+                _token: this._token.value
+            },
+            success: function (response) {
+                response = JSON.parse(response);
+                if(response.result === 'success'){
+                    $this.find('.form-control').notify(
+                        response.message,
+                        "success"
+                    );
+                    setTimeout(function(){
+                        location.replace ('/musics');
+                    },1500);
+
+                    if(response.params)
+                    {
+                        console.log(response.params);
+                    }
+
+                } else {
+                    $this.find('.form-control').notify(
+                        response.message,
+                        "error", { position:"right" }
+                    );
+                }
+                // if (typeof response.error !== 'undefined'){
+                //
+                // }
+            }
+        });
+    });
     
-
-
+    
     // $.ajax({
     //     type: "PATCH",
     //     url: "/api/musics/update",

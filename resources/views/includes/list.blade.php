@@ -1,10 +1,11 @@
-<div id="list" class="col-lg-3" style="width: 60%">
+<div id="list" class="col-lg-3">
     <table class="table">
-        <thead class="thead-inverse">
+        <thead>
         <tr>
-            <th>Name </th>
+            <th style="min-width: 100px">Name </th>
             <th>Link</th>
             <th style="width: 10px">Available</th>
+            @if(!Auth::guest())<th></th>@endif
         </tr>
         </thead>
         <tbody id="fullList">
@@ -13,6 +14,7 @@
             <td>{{$music->name}}</td>
             <td>{{$music->link}}</td>
             <td>{{$music->duration}}</td>
+            @if(!Auth::guest())<td><a href="musics/{{ $music->id }}/edit" class="btn btn-primary">Edit</a></td>@endif
         </tr>
         @endforeach
         </tbody>

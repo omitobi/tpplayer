@@ -1,5 +1,6 @@
 <div class="col-lg-10 container">
-    <form action="{{ route('music.add') }}" method="post">
+    <form class="new-music">
+        <input type="hidden" name="route" id="route" value="{{ route('api.music.add') }}">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="link">Music URL:</label>
