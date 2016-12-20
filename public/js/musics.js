@@ -166,7 +166,7 @@ $(document).ready( function() {
             error: 'something went wrong!'
         });
     }
-    makePlayList();
+    // makePlayList();
     function makePlayList() {
         var list = [];
         $.ajax({
@@ -174,7 +174,7 @@ $(document).ready( function() {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
             },
             error: 'something went wrong!'
         });
