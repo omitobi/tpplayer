@@ -65,6 +65,14 @@ $(document).ready( function() {
                         response.message,
                         "success"
                     );
+                    setTimeout(function(){
+                        location.replace ('/musics');
+                    },1500);
+
+                    if(response.params)
+                    {
+                        console.log(response.params);
+                    }
 
                 } else {
                     $this.find('.form-control').notify(
@@ -78,7 +86,8 @@ $(document).ready( function() {
             }
         });
     });
-
+    
+    
     // $.ajax({
     //     type: "PATCH",
     //     url: "/api/musics/update",

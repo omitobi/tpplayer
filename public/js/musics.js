@@ -168,7 +168,6 @@ $(document).ready( function() {
     }
     makePlayList();
     function makePlayList() {
-        alert('yes');
         var list = [];
         $.ajax({
             url: '/api/musics',

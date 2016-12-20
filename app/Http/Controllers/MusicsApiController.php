@@ -32,7 +32,7 @@ class MusicsApiController extends Controller
 
 
         $v = Validator::make($request->all(),  [
-            'link' => 'bail|required|active_url|unique:musics,link|min:18'
+            'link' => 'bail|string|required|active_url|unique:musics,link'
         ]);
 
         if ($v->fails())
@@ -43,21 +43,18 @@ class MusicsApiController extends Controller
                 );
         }
 
+        $newMusic = $this->separateMusic($request);
         if(Auth::check()) {
-            $newMusic = $this->separateMusic($request);
             $newMusic['user_id'] = Auth::user()->id;
-            $music = new Music($newMusic->all());
-            if($music->save()){
-                $response = json_encode(['result' =>'success', 'message' => 'Successfully Added new Music!']);
-            }
-            return $response;
         }
 
-        $newMusic = $this->separateMusic($request);
         $music = new Music($newMusic->all());
-        if($music->save()){
-            $response = json_encode(['result' =>'success', 'message' => 'Successfully Added new Music!']);
-        }
+        if ($music->save()) {
+                $response = json_encode(['result' => 'success',
+                    'message' => 'Successfully Added new Music!',
+                    'params' => $newMusic->all()
+                ]);
+            }
         return $response;
     }
 
