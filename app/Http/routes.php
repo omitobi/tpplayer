@@ -86,6 +86,13 @@ Route::post('api/musics',
     ]
 );
 
+Route::delete('api/musics/{music}',
+    [
+        'as' => 'api.music.remove',
+        'uses' => 'MusicsApiController@removeOne'
+    ]
+);
+
 Route::get('api/okay',
     [
         'as' => 'api.music.one',

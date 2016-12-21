@@ -115,4 +115,8 @@ class MusicsApiController extends Controller
         }
         return $response;
     }
+
+    function removeOne(Music $music){
+        
+    }
 }
