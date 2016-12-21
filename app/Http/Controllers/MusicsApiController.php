@@ -15,13 +15,12 @@ use Illuminate\Support\Facades\Validator;
 
 class MusicsApiController extends Controller
 {
+    private $safeValues = ['id', 'name', 'link', 'duration'];
     //
     public function getAll()
     {
-        $musics = Music::all()->where('user_id', "0");
-        if(Auth::check()) $musics =  Music::all();
-
-        $musics = $this->arrangeSafeResponse($musics->all());
+        $musics = Music::where('user_id', "0")->get($this->safeValues);
+        if(Auth::check()) $musics =  Music::get($this->safeValues);
         return $musics;
     }
 
@@ -58,7 +57,7 @@ class MusicsApiController extends Controller
         if ($music->save()) {
                 $response = json_encode(['result' => 'success',
                     'message' => 'Successfully Added new Music!',
-                    'params' => $this->arrangeSafeResponse($newMusic->all())
+                    'params' => $this->arrangeSafeResponse($newMusic)
                 ]);
             }
         return $response;
