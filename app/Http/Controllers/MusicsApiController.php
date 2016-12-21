@@ -15,14 +15,17 @@ use Illuminate\Support\Facades\Validator;
 
 class MusicsApiController extends Controller
 {
+    private $safeValues = ['id', 'name', 'link', 'duration'];
     //
-    public function getAll(Music $music){
-        $musics =  $music->all();
+    public function getAll()
+    {
+        $musics = Music::where('user_id', "0")->get($this->safeValues);
+        if(Auth::check()) $musics =  Music::get($this->safeValues);
         return $musics;
     }
 
     public function getOne(Music $music){
-        return $music;
+        return $this->arrangeSafeResponse($music);
     }
 
     public function addMusic(Request $request)
@@ -48,11 +51,14 @@ class MusicsApiController extends Controller
             $newMusic['user_id'] = Auth::user()->id;
         }
 
+        if(Auth::guest()){ $newMusic['user_id'] = 0; }
         $music = new Music($newMusic->all());
+        
         if ($music->save()) {
+            $newMusic['id'] = $music->id;
                 $response = json_encode(['result' => 'success',
                     'message' => 'Successfully Added new Music!',
-                    'params' => $newMusic->all()
+                    'params' => $this->arrangeSafeResponse($newMusic)
                 ]);
             }
         return $response;
@@ -61,7 +67,8 @@ class MusicsApiController extends Controller
     public function updateOne(Request $request, Music $music){
         //todo: validate and verify incoming request
         $response = json_encode(['result' =>'errors', 'message' =>'Error when updating']);
-        if($updated = $music->update($request->all())){
+        if($updated = $music->update($request->all()))
+        {
             $response = json_encode(['result' =>'success', 'message' => 'Successfully Updated']);
         }
         return $response;
@@ -81,14 +88,31 @@ class MusicsApiController extends Controller
         return $code;
     }
 
-    public function separateMusic($request, $public = true){
-
+    public function separateMusic($request){
         $requestNew = $request;
         $requestNew['link'] = urldecode($request->link);
         $name =  pathinfo($request->link);
         $requestNew['name'] = urldecode( $name['filename'] );
         $requestNew['duration'] = '00:00';
-        if(Auth::guest()){ $requestNew['user_id'] = 0; }
         return $requestNew;
+    }
+
+    public function arrangeSafeResponse($request, $class = 'music')
+    {
+        $response = [];
+        if($class === 'music' && count($request) > 1)
+            foreach ($request as $idx => $item) {
+                $response[$idx]['id'] = $item['id'];
+                $response[$idx]['name'] = $item['name'];
+                $response[$idx]['link'] = $item['link'];
+                $response[$idx]['duration'] = $item['duration'];
+            }
+        if($class === 'music' && count($request) == 1) {
+            $response['id'] = $request['id'];
+            $response['name'] = $request['name'];
+            $response['link'] = $request['link'];
+            $response['duration'] = $request['duration'];
+        }
+        return $response;
     }
 }
