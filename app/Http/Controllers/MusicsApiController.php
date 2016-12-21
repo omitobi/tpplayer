@@ -18,13 +18,15 @@ class MusicsApiController extends Controller
     //
     public function getAll()
     {
-        $musics = Music::all()->where('user_id', 0);
+        $musics = Music::all()->where('user_id', "0");
         if(Auth::check()) $musics =  Music::all();
+
+        $musics = $this->arrangeSafeResponse($musics->all());
         return $musics;
     }
 
     public function getOne(Music $music){
-        return $music;
+        return $this->arrangeSafeResponse($music);
     }
 
     public function addMusic(Request $request)
@@ -56,7 +58,7 @@ class MusicsApiController extends Controller
         if ($music->save()) {
                 $response = json_encode(['result' => 'success',
                     'message' => 'Successfully Added new Music!',
-                    'params' => $newMusic->all()
+                    'params' => $this->arrangeSafeResponse($newMusic->all())
                 ]);
             }
         return $response;
@@ -95,13 +97,22 @@ class MusicsApiController extends Controller
         return $requestNew;
     }
 
-    public function arrangeSafeResponse($request)
+    public function arrangeSafeResponse($request, $class = 'music')
     {
-        $allowed = ['id','name', 'link', 'duration'];
-
-        if(Auth::guest())
-        {
-
+        $response = [];
+        if($class === 'music' && count($request) > 1)
+            foreach ($request as $idx => $item) {
+                $response[$idx]['id'] = $item['id'];
+                $response[$idx]['name'] = $item['name'];
+                $response[$idx]['link'] = $item['link'];
+                $response[$idx]['duration'] = $item['duration'];
+            }
+        if($class === 'music' && count($request) == 1) {
+            $response['id'] = $request['id'];
+            $response['name'] = $request['name'];
+            $response['link'] = $request['link'];
+            $response['duration'] = $request['duration'];
         }
+        return $response;
     }
 }
