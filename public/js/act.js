@@ -65,19 +65,15 @@ $(document).ready( function() {
                         response.message,
                         "success"
                     );
-                    // setTimeout(function(){
-                    //     location.replace ('/musics');
-                    // },1500);
-
                     if(response.params)
                     {
                         console.log(response.params);
-                        // $('.fullList').append("" +
-                        //     "<tr>" +
-                        //     "<td>response.params.name</td>" +
-                        //     "<td>response.param.link</td>" +
-                        //     "<td>response.params.duration</td>" +
-                        //     "</tr>")
+                        $('#fullList').append("" +
+                            "<tr id='m"+response.params.id+"'>" +
+                            "<td>"+response.params.name+"</td>" +
+                            "<td>"+response.params.link+"</td>" +
+                            "<td>"+response.params.duration+"</td>" +
+                            "</tr>")
                     }
 
                 } else {
