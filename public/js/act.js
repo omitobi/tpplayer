@@ -65,13 +65,19 @@ $(document).ready( function() {
                         response.message,
                         "success"
                     );
-                    setTimeout(function(){
-                        location.replace ('/musics');
-                    },1500);
+                    // setTimeout(function(){
+                    //     location.replace ('/musics');
+                    // },1500);
 
                     if(response.params)
                     {
                         console.log(response.params);
+                        // $('.fullList').append("" +
+                        //     "<tr>" +
+                        //     "<td>response.params.name</td>" +
+                        //     "<td>response.param.link</td>" +
+                        //     "<td>response.params.duration</td>" +
+                        //     "</tr>")
                     }
 
                 } else {

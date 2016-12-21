@@ -55,6 +55,7 @@ class MusicsApiController extends Controller
         $music = new Music($newMusic->all());
         
         if ($music->save()) {
+            $newMusic['id'] = $music->id;
                 $response = json_encode(['result' => 'success',
                     'message' => 'Successfully Added new Music!',
                     'params' => $this->arrangeSafeResponse($newMusic)
@@ -66,7 +67,8 @@ class MusicsApiController extends Controller
     public function updateOne(Request $request, Music $music){
         //todo: validate and verify incoming request
         $response = json_encode(['result' =>'errors', 'message' =>'Error when updating']);
-        if($updated = $music->update($request->all())){
+        if($updated = $music->update($request->all()))
+        {
             $response = json_encode(['result' =>'success', 'message' => 'Successfully Updated']);
         }
         return $response;
@@ -87,7 +89,6 @@ class MusicsApiController extends Controller
     }
 
     public function separateMusic($request){
-
         $requestNew = $request;
         $requestNew['link'] = urldecode($request->link);
         $name =  pathinfo($request->link);
