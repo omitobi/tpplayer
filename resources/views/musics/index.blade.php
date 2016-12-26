@@ -9,8 +9,12 @@
 
                     <div class="panel-body">
                         @include('includes.set')
-                        @include('includes.tool')
-                        @include('includes.list')
+                        <div class="row">
+                            @include('includes.tool')
+                            @include('includes.list')
+                            </div>
+
+
                         {{--<div id="list" class="pull-right" style="width: 60%">--}}
                             {{--<table class="table table-striped">--}}
                                 {{--<thead>--}}
