@@ -1,8 +1,8 @@
-<div id="list" class="col-lg-3">
+<div id="list" class="col-lg-8 col-xs-12" >
     <table class="table">
-        <thead>
+        <thead class="thead-inverse">
         <tr>
-            <th style="min-width: 100px">Name </th>
+            <th>Name </th>
             <th>Link</th>
             <th style="width: 10px">Available</th>
             @if(!Auth::guest())<th></th>@endif
