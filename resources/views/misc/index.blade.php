@@ -12,10 +12,11 @@
         <ul class="list-group">
             <li class="list-group-item">FIXES</li>
                 <ul>
-                    <li class="list-group-item active">Fix music not playing after 9, goes back to 1</li>
+                    <li class="list-group-item success">Fix music not playing after 9, goes back to 1</li>
                     <li class="list-group-item">Verify & Validate the id of the music for getOneMusic endpoint</li>
-                    <li class="list-group-item">Add Music Link without reloading page (Ajax) </li>
-                    <li>Readjust the music list table to show appropriately even on mobile</li>
+                    <li class="list-group-item active">Add Music Link without reloading page (Ajax) </li>
+                    <li class="active">Readjust the music list table to show appropriately even on mobile</li>
+                    <li class="">Generate public play music link like https://music.omitobisam/m=jh89sadhoaskhd789yhh for a music</li>
                     <li>Add stop button</li>
                 </ul>
             <li class="list-group-item">Update music links</li>
