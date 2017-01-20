@@ -157,7 +157,6 @@ $(document).ready( function() {
     function playNext() {
         var mId = $("#fullList").find("tr.active").attr('id');
         var ID = mId.split("m").pop();
-        console.log(ID);
         document.title = "TP_PLayer";
         $.ajax({
             url: '/api/musics/'.concat(ID),
@@ -166,6 +165,19 @@ $(document).ready( function() {
             success: function (data) {
                 document.title = document.title.concat(" - (Playing) ").concat(data.name);
                 playNow(data.link);
+            },
+            error: 'something went wrong!'
+        });
+    }
+    makePlayList();
+    function makePlayList() {
+        var list = [];
+        $.ajax({
+            url: '/api/musics',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
             },
             error: 'something went wrong!'
         });

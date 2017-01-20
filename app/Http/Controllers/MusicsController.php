@@ -12,9 +12,18 @@ use Illuminate\Support\Facades\Auth;
 class MusicsController extends Controller
 {
     //
-    public function getAllMusic(Music $music){
-        $musics =  $music->all();
+    public function getAllMusic(){
+        $musics = Music::all()->where('user_id', "0");
+        if(Auth::check()) { $musics =  Music::all(); }
         return view('musics.index', ['musics' => $musics]);
+    }
+    
+    public function editOne(Music $music){
+        if(Auth::guest())
+        {
+            return redirect('/');
+        }
+        return view('musics.edit', ['music' => $music]);
     }
 
     public function addMusic(User $user, Request $request)
@@ -42,6 +51,8 @@ class MusicsController extends Controller
 
         return back();
     }
+    
+    
 
     public function separateMusic($request, $public = true){
 

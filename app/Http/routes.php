@@ -38,6 +38,13 @@ Route::get('musics',
     ]
 );
 
+Route::get('musics/{music}/edit',
+    [
+        'as' => 'musics.edit',
+        'uses' => 'MusicsController@editOne'
+    ]
+);
+
 Route::get('oldmusic',
     [
         'as' => 'show.old.musics',
@@ -58,10 +65,24 @@ Route::get('api/musics',
     ]
 );
 
+Route::patch('api/musics/{music}',
+    [
+        'as' => 'api.music.update',
+        'uses' => 'MusicsApiController@updateOne'
+    ]
+);
+
 Route::get('api/musics/{music}',
     [
         'as' => 'api.music.one',
         'uses' => 'MusicsApiController@getOne'
+    ]
+);
+
+Route::post('api/musics',
+    [
+        'as' => 'api.music.add',
+        'uses' => 'MusicsApiController@addMusic'
     ]
 );
 
