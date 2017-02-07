@@ -154,6 +154,13 @@ $(document).ready( function() {
 
     playFirst();
 
+    $("#fullList").find('tr').on('click', function () {
+        $('tr').removeClass('active');
+        $(this).addClass('active');
+        playNext();
+    });
+
+
     function playNext() {
         var mId = $("#fullList").find("tr.active").attr('id');
         var ID = mId.split("m").pop();
@@ -177,7 +184,7 @@ $(document).ready( function() {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data); //todo: load music by ajax and not by laravel blade
             },
             error: 'something went wrong!'
         });
