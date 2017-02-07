@@ -12,4 +12,8 @@ class Music extends Model
     public function user(){
         $this->belongsTo(User::class);
     }
+
+    public function isPublic(){
+        return !$this->user_id ? $this : false;
+    }
 }

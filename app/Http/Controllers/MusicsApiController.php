@@ -35,6 +35,10 @@ class MusicsApiController extends Controller
         {
             return response()->json(['result' =>'errors', 'message' =>'Error when retrieving music'], 404);
         }
+        if(!Auth::check() && !$music->isPublic())
+        {
+            return response()->json(['result' =>'errors', 'message' =>'This music is not public'], 403);
+        }
         return $this->arrangeSafeResponse($music);
     }
 
