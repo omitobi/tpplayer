@@ -120,4 +120,49 @@ $(document).ready( function() {
     //     }
     // });
 
+
+    var music_id = null;
+    $(".delete-btn").on('click', function () {
+        var sel_music = $(this).closest('tr');
+        var sel_name = sel_music.children(':first-child').text();
+        // $('#delete-modal').find('#exampleModalLabel').text('Delete '+ sel_name);
+        var del_modal = $('#delete-modal');
+        music_id =  sel_music.attr('id').split("m").pop();
+        del_modal.find('h5').text(sel_name);
+        del_modal.find('form input').val(music_id);
+    });
+
+    /**
+     * Delete a music
+     */
+    $(".delete-music-btn").on('click', function (e) {
+        $this = $(this);
+        $.ajax({
+            type: "DELETE",
+            url: "/api/musics/" + music_id,
+            cache: false,
+            data: {_token: $('#delete-music-form').children(':first-child').val()},
+            success: function (response) {
+                if (response.result === 'success') {
+                    $this.notify(
+                        'Music deleted successfully',
+                        "success"
+                    );
+
+                    setTimeout(function () {
+                        location.replace('/musics');
+                    }, 1500);
+
+                } else {
+                    $this.notify(
+                        response.message,
+                        "error"
+                    );
+                }
+            }
+        });
+    });
+
+
+
 });

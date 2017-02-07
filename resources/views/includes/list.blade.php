@@ -14,7 +14,7 @@
             <td>{{$music->name}}</td>
             <td>{{$music->duration}}</td>
             @if(!Auth::guest())<td><a href="musics/{{ $music->id }}/edit" class="btn btn-primary">Edit</a></td>@endif
-            @if(!Auth::guest())<td><a href="musics/{{ $music->id }}/delete" class="btn btn-danger">Delete</a></td>@endif
+            @if(!Auth::guest())<td><a class="btn btn-danger delete-btn" data-toggle="modal" data-target=".bs-example-modal-sm">Delete</a></td>@endif
         </tr>
         @endforeach
         </tbody>

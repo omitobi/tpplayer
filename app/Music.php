@@ -16,4 +16,8 @@ class Music extends Model
     public function isPublic(){
         return !$this->user_id ? $this : false;
     }
+    
+    public function isOwner($user_id){
+        return ($this->user_id  === $user_id) ? $this : false;
+    }
 }
