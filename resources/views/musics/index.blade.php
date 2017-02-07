@@ -12,6 +12,8 @@
                         <div class="row">
                             @include('includes.tool')
                             @include('includes.list')
+                            @include('includes.modal')
+
                             </div>
 
 
