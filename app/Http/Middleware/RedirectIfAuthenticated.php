@@ -19,8 +19,8 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
 //            show.musics
-            return redirect(route('show.musics'));
-//            return redirect('/musics');
+//            return redirect(route('show.musics'));
+            return redirect('/musics');
         }
 
         return $next($request);
