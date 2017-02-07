@@ -45,15 +45,6 @@ Route::get('musics/{music}/edit',
     ]
 );
 
-Route::get('oldmusic',
-    [
-        'as' => 'show.old.musics',
-        function(){
-            return view('includes.welcome');
-        }
-    ]
-);
-
 
 /**
  * Music APIs
@@ -86,12 +77,16 @@ Route::post('api/musics',
     ]
 );
 
-Route::get('api/okay',
+Route::delete('api/musics/{music}',
     [
-        'as' => 'api.music.one',
-        'uses' => 'MusicsApiController@isWorkingLink'
+        'as' => 'api.music.delete',
+        'uses' => 'MusicsApiController@destroy'
     ]
 );
+
+
+
+
 
 /**
  * Miscalleneous
@@ -103,5 +98,22 @@ Route::get('misc',
         function(){
             return view('misc.index');
         }
+    ]
+);
+
+
+Route::get('oldmusic',
+    [
+        'as' => 'show.old.musics',
+        function(){
+            return view('includes.welcome');
+        }
+    ]
+);
+
+Route::get('api/okay',
+    [
+        'as' => 'api.music.one',
+        'uses' => 'MusicsApiController@isWorkingLink'
     ]
 );

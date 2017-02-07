@@ -17,6 +17,12 @@ class MusicsApiController extends Controller
 {
     private $safeValues = ['id', 'name', 'link', 'duration'];
     //
+
+    public function __construct(Music $musics)
+    {
+        $this->musics = $musics;
+    }
+
     public function getAll()
     {
         $musics = Music::where('user_id', "0")->get($this->safeValues);
@@ -24,7 +30,11 @@ class MusicsApiController extends Controller
         return $musics;
     }
 
-    public function getOne(Music $music){
+    public function getOne($music_id){
+        if(!$music = $this->musics->find($music_id))
+        {
+            return response()->json(['result' =>'errors', 'message' =>'Error when retrieving music'], 404);
+        }
         return $this->arrangeSafeResponse($music);
     }
 
