@@ -1,6 +1,6 @@
 <div id="list" class="col-lg-8 col-xs-12" >
     <table class="table">
-        <thead>
+        <thead class="thead-inverse">
         <tr>
             <th class="col-lg-2">Name </th>
             <th class="col-lg-2">Available</th>
