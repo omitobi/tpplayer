@@ -17,6 +17,12 @@ class MusicsApiController extends Controller
 {
     private $safeValues = ['id', 'name', 'link', 'duration'];
     //
+
+    public function __construct(Music $musics)
+    {
+        $this->musics = $musics;
+    }
+
     public function getAll()
     {
         $musics = Music::where('user_id', "0")->get($this->safeValues);
@@ -24,7 +30,15 @@ class MusicsApiController extends Controller
         return $musics;
     }
 
-    public function getOne(Music $music){
+    public function getOne($music_id){
+        if(!$music = $this->musics->find($music_id))
+        {
+            return response()->json(['result' =>'errors', 'message' =>'Error when retrieving music'], 404);
+        }
+        if(!Auth::check() && !$music->isPublic())
+        {
+            return response()->json(['result' =>'errors', 'message' =>'This music is not public'], 403);
+        }
         return $this->arrangeSafeResponse($music);
     }
 
@@ -72,6 +86,33 @@ class MusicsApiController extends Controller
             $response = json_encode(['result' =>'success', 'message' => 'Successfully Updated']);
         }
         return $response;
+    }
+
+
+    public function destroy($music_id)
+    {
+        if (!Auth::check()) {
+            return response()->json(['result' => 'errors', 'message' => 'You cannot delete this music'], 503);
+        }
+
+        if (!$music = $this->musics->find($music_id)) {
+            return response()->json(['result' => 'errors', 'message' => 'Music does not exist'], 404);
+        }
+        $user = Auth::user();
+        if(!$music->isPublic() && !$music->isOWner($user->id))
+        {
+            return response()->json(['result' => 'errors', 'message' => 'You cannot delete this music'], 503);
+        }
+
+        if(!$user->deletedmusics()->create(['music_id' => $music->id, 'link' => $music->link]))
+        {
+            return response()->json(['result' => 'errors', 'message' => 'Error backing music up when deleting'], 500);
+        }
+        if (!$music->delete())
+        {
+            return response()->json(['result' => 'errors', 'message' => 'Error when deleting music'], 500);
+        }
+        return response(['result' => 'success'], 200);
     }
     public function isWorkingLink(){
 
