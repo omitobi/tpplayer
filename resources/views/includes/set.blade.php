@@ -1,6 +1,6 @@
 
 <div class="row">
-    <form action="{{ route('music.add') }}" method="post" class="new-music">
+    <form method="post" class="new-music">
         {{ csrf_field() }}
         <input type="hidden" name="route" id="route" value="{{ route('api.music.add') }}">
         <div class="col-xs-9   col-lg-8 col-lg-offset-2 col-xs-offset-0">
