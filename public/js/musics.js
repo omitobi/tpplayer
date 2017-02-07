@@ -154,6 +154,9 @@ $(document).ready( function() {
 
     playFirst();
 
+    /**
+     * Play by selecting clicking one of the table rows
+     */
     $("#fullList").find('tr').on('click', function () {
         $('tr').removeClass('active');
         $(this).addClass('active');
