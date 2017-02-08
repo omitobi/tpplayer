@@ -79,6 +79,12 @@ class MusicsApiController extends Controller
         return $response;
     }
 
+
+    public function addBulkMusic()
+    {
+        return [];
+    }
+
     public function updateOne(Request $request, Music $music){
         //todo: validate and verify incoming request
         $response = json_encode(['result' =>'errors', 'message' =>'Error when updating']);

@@ -77,6 +77,13 @@ Route::post('api/musics',
     ]
 );
 
+Route::post('api/musics/bulk',
+    [
+        'as' => 'api.music.add',
+        'uses' => 'MusicsApiController@addBulkMusic'
+    ]
+);
+
 Route::delete('api/musics/{music}',
     [
         'as' => 'api.music.delete',
