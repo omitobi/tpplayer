@@ -5,3 +5,20 @@
 #fullList tr{
     cursor: pointer;
 }
+
+#list .table tr {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+}
+
+#list table{
+    height:500px;              // <-- Select the height of the table
+display: -moz-groupbox;    // Firefox Bad Effect
+}
+#list .table tbody{
+    overflow-y: scroll;
+    height: 500px;            //  <-- Select the height of the body
+width: 100%;
+    position: absolute;
+}
