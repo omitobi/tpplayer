@@ -85,6 +85,13 @@ Route::delete('api/musics/{music}',
 );
 
 
+Route::get('api/musics/deleted/deleted',
+    [
+        'as' => 'api.music.deleted.all',
+        'uses' => 'MusicsApiController@getDeleted'
+    ]
+);
+
 
 
 
