@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DeletedMusic;
 use App\Music;
 use App\User;
 use Illuminate\Http\Request;
@@ -113,6 +114,23 @@ class MusicsApiController extends Controller
             return response()->json(['result' => 'errors', 'message' => 'Error when deleting music'], 500);
         }
         return response(['result' => 'success'], 200);
+    }
+
+    public function getDeleted()
+    {
+        $inters = DeletedMusic::all()->load('user');
+        $result = [];
+        foreach($inters as $key => $inter)
+        {
+           $result[$key]['deleter_id'] = $inter->deleter_id;
+           $result[$key]['deleter_name'] = $inter->user->name;
+           $result[$key]['deleted_link'] = $inter->link;
+           $result[$key]['deleted_at'] = $inter->updated_at->diffForHumans(); //keeping carbon ->format('Y-m-d H:i:s');
+        }
+        return (!empty($result)) ? [
+            'result' => 'success',
+            'deletedMusics' => $result]
+            : response()->json(['result' => 'errors', 'message' => 'No deleted music'], 404);
     }
     public function isWorkingLink(){
 

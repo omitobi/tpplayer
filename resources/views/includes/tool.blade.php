@@ -26,6 +26,9 @@
             <div class="col-xs-2 col-lg-3" >
                 <a class="btn btn-danger" id="unmute" onclick="document.getElementById('player').volume = 1">(&gt;)</a>
             </div>
+            <div class="col-xs-2 col-lg-3" >
+                <a class="btn" id="random">(~)</a>
+            </div>
             {{--<a id="dur">Last Duration</a>--}}
 
 
