@@ -1,0 +1,7 @@
+.y_rand{
+    background-color: #cccccc;
+}
+
+#fullList tr{
+    cursor: pointer;
+}
