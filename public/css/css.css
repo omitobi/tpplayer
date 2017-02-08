@@ -19,6 +19,6 @@ display: -moz-groupbox;    // Firefox Bad Effect
 #list .table tbody{
     overflow-y: scroll;
     height: 500px;            //  <-- Select the height of the body
-width: 100%;
+    width: 100%;
     position: absolute;
 }
