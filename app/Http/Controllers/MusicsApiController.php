@@ -80,9 +80,12 @@ class MusicsApiController extends Controller
     }
 
 
-    public function addBulkMusic()
+    public function addBulkMusic(Request $request)
     {
-        return [];
+        $newMusics =  [];
+//        foreach ($request->all() as $req)
+            $newMusics[] = $this->separateMusic($request);
+        return ['musics' => $newMusics];
     }
 
     public function updateOne(Request $request, Music $music){
