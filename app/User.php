@@ -24,8 +24,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function music(){
-        $this->hasMany(Music::class);
+    public function musics(){
+        return $this->hasMany(Music::class);
     }
 
     public function deletedmusics()
