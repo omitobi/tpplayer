@@ -16,5 +16,5 @@
 > Why not
 
 ### Todos?
-> here: http://music.omitobisam.com/misc
+> here: _using issue now__
 
