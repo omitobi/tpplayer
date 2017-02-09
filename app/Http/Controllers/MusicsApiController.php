@@ -142,12 +142,11 @@ class MusicsApiController extends Controller
 
     public function addBulkMusic(Request $request)
     {
-//        if(Auth::guest())
-//        {
-//            return response()->json(['result' => 'errors', 'message' => 'Unauthorized to add bulk music'], 403);
-//        }
-//        $user = Auth::user();
-        $user = $this->users->find(2);
+        if(Auth::guest())
+        {
+            return response()->json(['result' => 'errors', 'message' => 'Unauthorized to add bulk music'], 403);
+        }
+        $user = Auth::user();
         $user_id = $user->id;
         $links =  $request->get('links');
         if($existing_links = $this->links_exists($links))
@@ -194,6 +193,7 @@ class MusicsApiController extends Controller
         }
         return empty($existing) ? false : $existing;
     }
+
     public function isWorkingLink(){
 
         $link = Input::get('link');
