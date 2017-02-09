@@ -164,5 +164,131 @@ $(document).ready( function() {
     });
 
 
+    /**
+     * Add bulk music links
+     */
+
+
+
+    $(".load-bulk-btn").on('click', function (e) {
+        e.preventDefault();
+
+        var bulk_add_modal = $('#bulk-add-modal');
+        var bulk_add_form =  bulk_add_modal.find('#bulk-add-form');
+        var bulk_add_token = bulk_add_form.find("input[name='_token']").val();
+        if(!/^http/.test(bulk_add_modal.find('#bulk-link').val()))
+        {
+            bulk_add_modal.find('#bulk-link').notify(
+                'Invalid site\'s url',
+                "error"
+            );
+            return ;
+        }
+
+        // var base_url = 'http://stansarea.com/Christian/ChristianMusic/RevivalHynms06Ajukebox_files/';
+        var base_url = bulk_add_form.find('#bulk-link').val();
+
+
+        $("#bulk-site").load("api/links/extracts?url=" + base_url, function (response, status, xhr) {
+            if (status == "error") {
+                var msg = "Sorry but there was an error: ";
+                $("#error").html(msg + xhr.status + " " + xhr.statusText);
+            }
+
+
+            var a_url = [];
+            bulk_add_modal.find('a').before("<input type='checkbox' class='btn' value=''>");
+
+            bulk_add_modal.find('input[type="checkbox"]').click(function () {
+                if ($(this).is(":checked")) {
+                    var next_link = $(this).next();
+                    var checked_url = base_url + next_link.attr('href');
+                    $(this).val(checked_url);
+//                        a_url.push($(this).val());
+//                        alert(checked_url);
+                }
+                else if ($(this).is(":not(:checked)")) {
+                    $(this).val('');
+                }
+            });
+
+
+            $('#_base_tp_src').on('click', function () {
+                var checkValues = bulk_add_modal.find('input[type=checkbox]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+
+                //todo: check if the links passed are mp3 links
+
+//                    $(this).val(checked_url);
+                var $this = $(this);
+
+                console.log(checkValues);
+                if(checkValues.length < 1)
+                {
+                    $this.notify(
+                        'Please check at least one music',
+                        "error"
+                    );
+                    return ;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "api/musics/bulk",
+                    cache: false,
+                    data: {
+                        links: checkValues,
+                        _token: bulk_add_token
+                    },
+                    error: function(xhr, status, error) {
+                        var err = JSON.parse(xhr.responseText);
+                        $('#_base_tp_src').notify(
+                            err.message,
+                            "error"
+                        );
+                        // $.notify({
+                        //     title: err.links,
+                        //     button: 'hide'
+                        // }, {
+                        //     style: 'foo',
+                        //     autoHide: false,
+                        //     clickToHide: false
+                        // });
+                        // alert(err.message .'link');
+                    },
+                    success: function (myresponse) {
+                        if (myresponse.result === 'success') {
+                            $('#_base_tp_src').notify(
+                                myresponse.message,
+                                "success"
+                            );
+                        }
+                        else {
+                            $('#_base_tp_src').notify(
+                                myresponse.message,
+                                "error"
+                            );
+                        }
+                    }
+                });
+
+            });
+
+
+            /*$('a').on('click', function () {
+             var $this = this.toString();
+             if(/^http/.test($this) && ($this.endsWith('.mp3') || $this.endsWith('.MP3')))
+             {
+             alert('It is an mp3 link');
+             } else {
+             alert('not an mp3 link');
+             }
+             return ;
+             alert($this);*/
+//                })
+        });
+    });
+
 
 });

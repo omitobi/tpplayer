@@ -77,6 +77,13 @@ Route::post('api/musics',
     ]
 );
 
+Route::post('api/musics/bulk',
+    [
+        'as' => 'api.music.bulk',
+        'uses' => 'MusicsApiController@addBulkMusic'
+    ]
+);
+
 Route::delete('api/musics/{music}',
     [
         'as' => 'api.music.delete',
@@ -98,6 +105,40 @@ Route::get('api/musics/deleted/deleted',
 /**
  * Miscalleneous
  */
+
+Route::get('api/links/extracts',
+    [
+        'as' => 'links.extract',
+        function(\Illuminate\Http\Request $request){
+            $url = $request->get('url');
+            $url_element = "<button class='btn btn-primary' id='_base_tp_src' value='".$url."'> Load All</button> \n";
+            // Ref: http://codular.com/curl-with-php
+            // Get cURL resource
+            $curl = curl_init();
+            // Set some options - we are passing in a useragent too here
+            curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $url,
+                CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+            ));
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
+            // Close request to clear up some resources
+            curl_close($curl);
+            $bodybegin = "<body>";
+            $bodyend = "</body></html>";
+            $bpos = strpos($resp, $bodybegin); //beginning position
+            $epos = strrpos($resp, $bodyend); //end position
+            $str = substr($resp,$bpos+6);
+            $str = str_replace($bodyend, "", $str);
+            //$fullstr = substr($str, 0, $epos) . $url_element . substr($str, $epos);
+            $str .= $url_element;
+            $result = print_r($str, true);
+            return $result;
+        }
+    ]
+);
+
 
 Route::get('misc',
     [
