@@ -164,13 +164,11 @@ class MusicsApiController extends Controller
             $new_musics[] = $this->separateMusic(['link' => $link], ['user_id' => $user_id]);
         }
 
-//        $newMusics = collect($this->separateMusic($request)->all());
-//        $nMusics = $newMusics->merge(['user_id' => $user_id])->all();
-//        return $nMusics['link'];
         if(empty($new_musics))
         {
             response()->json(['result' => 'errors', 'message' => 'Something went wrong while separating music'], 500);
         }
+
         if( !$user->musics()->insert(
             $new_musics
         )){
