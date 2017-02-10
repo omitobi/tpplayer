@@ -135,13 +135,23 @@ $(document).ready( function() {
     // alert($("#fullList").find("#m5").text());
 
     $("#controller").find('#next').on('click', function () {
-        setNext();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else {
+            setNext();
+            playNext();
+        }
     });
 
     $("#controller").find('#prev').on('click', function () {
-        setPrev();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else {
+            setPrev();
+            playNext();
+        }
     });
 
     function playLast() {
