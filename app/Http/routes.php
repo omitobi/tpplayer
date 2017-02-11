@@ -99,7 +99,23 @@ Route::get('api/musics/deleted/deleted',
     ]
 );
 
+/**
+ * Playlists API
+ */
+Route::get('api/playlists',
+    [
+        'as' => 'api.playlists',
+        'uses' => 'PlaylistAPi@getAll'
+    ]
+);
 
+
+Route::post('api/playlists',
+    [
+        'as' => 'api.playlist.add',
+        'uses' => 'PlaylistAPi@addPlaylist'
+    ]
+);
 
 
 /**
