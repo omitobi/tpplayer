@@ -28,6 +28,9 @@
             </div>
             <div class="col-xs-2 col-lg-3" >
                 <a class="btn" id="random">(~)</a>
+
+            </div><div class="col-xs-2 col-lg-3" >
+                <a class="btn btn-block" id="repeat"> (o) </a>
             </div>
             {{--<a id="dur">Last Duration</a>--}}
 

@@ -1,6 +1,7 @@
 $(document).ready( function() {
     var player = document.getElementById('player');
     var random_button = $('#controller').find('#random');
+    var repeat_button = $('#controller').find('#repeat');
     // // $(player).attr('src', 'http://lgfkc.gcichurches.org/worshipmusic/mp3/Glorious Day (Living He Loved Me).mp3');
     //
     // playNow();
@@ -35,7 +36,9 @@ $(document).ready( function() {
         if(random_button.hasClass( "y_rand" ))
         {
             playRandom();
-        } else {
+        } else if(repeat_button.hasClass("y_repeat")) {
+            playNext();
+        }else{
             setNext();
             playNext();
         }
@@ -135,13 +138,23 @@ $(document).ready( function() {
     // alert($("#fullList").find("#m5").text());
 
     $("#controller").find('#next').on('click', function () {
-        setNext();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else {
+            setNext();
+            playNext();
+        }
     });
 
     $("#controller").find('#prev').on('click', function () {
-        setPrev();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else {
+            setPrev();
+            playNext();
+        }
     });
 
     function playLast() {
@@ -172,7 +185,21 @@ $(document).ready( function() {
         if($( this ).hasClass( "y_rand" )){
             $(this).removeClass('y_rand');
         } else {
+            repeat_button.removeClass('y_repeat');
             $(this).addClass('y_rand');
+        }
+    });
+
+
+    /**
+     * Repeat the present music
+     */
+    repeat_button.on('click', function () {
+        if($( this ).hasClass( "y_repeat" )){
+            $(this).removeClass('y_repeat');
+        } else {
+            random_button.removeClass('y_rand');
+            $(this).addClass('y_repeat');
         }
     });
 
@@ -187,6 +214,8 @@ $(document).ready( function() {
         $(this).addClass('active');
         playNext();
     });
+
+
 
 
     function playNext() {
