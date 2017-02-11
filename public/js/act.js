@@ -189,7 +189,7 @@ $(document).ready( function() {
         var base_url = bulk_add_form.find('#bulk-link').val();
 
 
-        $("#bulk-site").load("api/links/extracts?url=" + base_url, function (response, status, xhr) {
+        $("#bulk-site").load("api/links/extracts?url=" + encodeURIComponent(base_url), function (response, status, xhr) {
             if (status == "error") {
                 var msg = "Sorry but there was an error: ";
                 $("#error").html(msg + xhr.status + " " + xhr.statusText);
