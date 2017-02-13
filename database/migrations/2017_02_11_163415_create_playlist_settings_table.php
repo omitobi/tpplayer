@@ -16,8 +16,9 @@ class CreatePlaylistSettingsTable extends Migration
             $table->increments('id');
             $table->integer('playlist_id')->unsigned()->unique();
             $table->enum('repeat_all',[0, 1])->default(0);
-            $table->smallInteger('repeat_music_id')->unsigned();
+            $table->smallInteger('repeat_music_id')->unsigned()->default(0); //default => no music is repeated
             $table->enum('random',[0, 1])->default(0);
+            $table->integer('last_played',[0, 1])->default(0); //1 activates settings to resume from last played
             $table->timestamps();
             $table->foreign('playlist_id')
                 ->references('id')->on('playlists')
