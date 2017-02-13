@@ -15,10 +15,10 @@ class CreatePlaylistsTable extends Migration
         Schema::create('playlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('name')->unique()->default('general');
+            $table->string('name')->default('general');
             $table->string('type');
             $table->string('description');
-            $table->string('playing_music_id')->unsigned()->default(0);//0 stays for public, 0 if last_played settings = 0
+            $table->integer('playing_music_id')->unsigned()->default(0);//0 stays for public, 0 if last_played settings = 0
             $table->timestamps();
             $table->unique(['user_id', 'name'], 'user_name_unique');
 //            $table->foreign('user_id')
