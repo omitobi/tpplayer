@@ -187,7 +187,7 @@ $(document).ready( function() {
 
         // var base_url = 'http://stansarea.com/Christian/ChristianMusic/RevivalHynms06Ajukebox_files/';
         var base_url = bulk_add_form.find('#bulk-link').val();
-
+  
 
         $("#bulk-site").load("api/links/extracts?url=" + encodeURIComponent(base_url), function (response, status, xhr) {
             if (status == "error") {
