@@ -48,14 +48,14 @@ Route::get('musics/{music}/edit',
 Route::get('dashboard',
     [
         'as' => 'show.dashboard',
-        'uses' => 'DashboardController@show'
+        'uses' => 'Dashboard\DashboardController@show'
     ]
 );
 
 Route::get('playlists',
     [
         'as' => 'show.playlists',
-        'uses' => 'PlaylistsController@show'
+        'uses' => 'Playlist\PlaylistsController@show'
     ]
 );
 
