@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DeletedMusic;
 use App\Music;
+use App\Playlist;
 use App\User;
 use Illuminate\Http\Request;
 use GuzzleHttp;
@@ -70,13 +71,20 @@ class MusicsApiController extends Controller
         if(Auth::guest()){ $newMusic['user_id'] = 0; }
         $music = new Music($newMusic->all());
         
-        if ($music->save()) {
-            $newMusic['id'] = $music->id;
-                $response = json_encode(['result' => 'success',
-                    'message' => 'Successfully Added new Music!',
-                    'params' => $this->arrangeSafeResponse($newMusic)
-                ]);
-            }
+        if (!$music->save())
+        {
+            return $response;
+        }
+        //playlist of 1 must exist
+        if(!$playlist = $music->musicsplaylists()->create(['playlist_id' => '1']))
+        {
+            return response()->json(['error' => 'Something went wrong while adding playlists'], 500);
+        }
+        $newMusic['id'] = $music->id;
+        $response = json_encode(['result' => 'success',
+            'message' => 'Successfully Added new Music!',
+            'params' => $this->arrangeSafeResponse($newMusic)
+        ]);
         return $response;
     }
 
