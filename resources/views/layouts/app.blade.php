@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/css.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
     <style>
         body {
             font-family: 'Lato';
