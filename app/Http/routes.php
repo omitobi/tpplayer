@@ -45,6 +45,20 @@ Route::get('musics/{music}/edit',
     ]
 );
 
+Route::get('dashboard',
+    [
+        'as' => 'show.dashboard',
+        'uses' => 'DashboardController@show'
+    ]
+);
+
+Route::get('playlists',
+    [
+        'as' => 'show.playlists',
+        'uses' => 'PlaylistsController@show'
+    ]
+);
+
 
 /**
  * Music APIs
