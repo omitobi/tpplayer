@@ -15,19 +15,24 @@ class MusicsController extends Controller
     //
     public function getAllMusic(Request $request){
 
+        $user = null;
         if(!$request->has('playlist') || !$request->get('playlist'))
         {
             $request['playlist'] = 1;
         }
         $playlist = Playlist::where('user_id', '0')->first();
-        if(!Auth::check())
+        if(Auth::guest())
         {
-            $musics = $playlist->musicsplaylists()->with('music')
-                ->get()->where('music.user_id', '0')->all();
-            $musics['playlist_name'] = $playlist->name();
-            return view('musics.index', ['musics' => $musics]);
+            $user = new User();
+            $user->id = 0;
+            $musics = $user->playlists()->first()->musicsplaylists()->with('music')->get();
+            $musics->playlist_name = $playlist->name;
+
+            return view('musics.index', [
+                'musics' => $musics,
+                'playlists' => ($user) ? $this->getPlaylists($user) : null
+            ]);
         }
-        $user = null;
         if(Auth::check()) {
             $user = Auth::user();
             $playlists = $user->playlists()->where('id', $request['playlist']);
@@ -41,10 +46,10 @@ class MusicsController extends Controller
                 $musics->playlist_name = $playlist->name;
             }
 
-//            return ($user) ? ['playlists' => $this->getPlaylists($user)] : [];
+//            return ($user) ? ['playlists' => $this->getPlaylists($user)] : []
             return view('musics.index', [
                 'musics' => $musics,
-                'playlists' => ($user) ? $this->getPlaylists($user) : []
+                'playlists' => ($user) ? $this->getPlaylists($user) : null
             ]);
         }
     }

@@ -24,9 +24,15 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <a class="btn btn-info add-to-playlist-btn" data-toggle="modal" data-target=".music-to-playlist-sm">
-                        Add to my Playlist
-                    </a>
+                    @if(Auth::guest())
+                        <a class="btn btn-info disabled">
+                            Add to my Playlist
+                        </a>
+                    @else
+                        <a class="btn btn-info add-to-playlist-btn" data-toggle="modal" data-target=".music-to-playlist-sm">
+                            Add to my Playlist
+                        </a>
+                    @endif
                 </td>
             </tr>
             <tr>
@@ -35,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
 
-                        <form id="new-music">
+                        <form id="new-music-add-form">
                             <div class="col-md-3">
                                 <div class="input-group">
                                     {{ csrf_field() }}
