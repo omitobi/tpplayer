@@ -5,7 +5,7 @@
        Playlists
     </div>
     <div class="col-lg-4">
-        <a class="btn bg-info" data-toggle="modal" data-target=".new-playlist-sm">Create new Playlist</a>
+        <a class="btn bg-info" id="new-playlist-toggle" data-toggle="modal" data-target=".new-playlist-sm">Create new Playlist</a>
     </div>
 </div>
 <div class="row">
