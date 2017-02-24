@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(DeletedMusic::class, 'deleter_id');
     }
+
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
 }

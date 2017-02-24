@@ -16,8 +16,8 @@ class DashboardController extends Controller
     public function show()
     {
         $user_id = Auth::user()->id;
-        $playlists = Playlist::find(1);
-        
+        $playlists = Playlist::all();
+
         return view('dashboard.index', compact('playlists'));
     }
 }

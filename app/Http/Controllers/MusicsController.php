@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Music;
+use App\Playlist;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,34 @@ use Illuminate\Support\Facades\Auth;
 class MusicsController extends Controller
 {
     //
-    public function getAllMusic(){
-        $musics = Music::all()->where('user_id', "0");
-        if(Auth::check()) { $musics =  Music::all(); }
-        return view('musics.index', ['musics' => $musics]);
+    public function getAllMusic(Request $request){
+
+        if(!$request->has('playlist') || !$request->get('playlist'))
+        {
+            $request['playlist'] = 1;
+        }
+        $playlist = Playlist::where('user_id', '0')->first();
+        if(!Auth::check())
+        {
+            $musics = $playlist->musicsplaylists()->with('music')
+                ->get()->where('music.user_id', '0')->all();
+            $musics['playlist_name'] = $playlist->name();
+            return view('musics.index', ['musics' => $musics]);
+        }
+        if(Auth::check()) {
+            $playlists = Auth::user()->playlists()->where('id', $request['playlist']);
+            if($playlists->first())
+            {
+                $musics = $playlists->musicsplaylists()->with('music')->get();
+            } else
+            {
+                $musics = $playlist->musicsplaylists()->with('music')
+                    ->get();
+                $musics->playlist_name = $playlist->name;
+            }
+//            $musics =  Music::all();
+            return view('musics.index', ['musics' => $musics]);
+        }
     }
     
     public function editOne(Music $music){
