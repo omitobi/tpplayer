@@ -62,7 +62,16 @@ class PlaylistsApiController extends Controller
             ], 400);
         }
 
-        if(!$playlist->musicsplaylists()->create(['music_id' => $music->id]))
+        $musicsplaylists = $playlist->musicsplaylists();
+        if($musicsplaylists->where('music_id', $music->id)->first())
+        {
+            return response()->json([
+                'result' => 'success',
+                'message' => "This music is already in your: '{$playlist->name}' playlist"
+            ]);
+        }
+
+        if(!$musicsplaylists->create(['music_id' => $music->id]))
         {
             return response()->json([
                 'result' => 'errors',

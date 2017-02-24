@@ -310,6 +310,13 @@ $(document).ready( function() {
             data: {
                 _token: _token
             },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                add_to_playlist_modal.find('.modal-footer').find('button').notify(
+                    err.message,
+                    "error"
+                );
+            },
             success: function (response) {
                 if (response.result === 'success') {
                     add_to_playlist_modal.find('.modal-footer').find('button').notify(
@@ -319,7 +326,7 @@ $(document).ready( function() {
 
                     setTimeout(function () {
                         add_to_playlist_modal.modal('toggle');
-                    }, 1500);
+                    }, 2000);
                 } else {
                     add_to_playlist_modal.find('.modal-footer').find('button').notify(
                         response.message,
