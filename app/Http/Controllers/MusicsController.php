@@ -27,8 +27,10 @@ class MusicsController extends Controller
             $musics['playlist_name'] = $playlist->name();
             return view('musics.index', ['musics' => $musics]);
         }
+        $user = null;
         if(Auth::check()) {
-            $playlists = Auth::user()->playlists()->where('id', $request['playlist']);
+            $user = Auth::user();
+            $playlists = $user->playlists()->where('id', $request['playlist']);
             if($playlists->first())
             {
                 $musics = $playlists->musicsplaylists()->with('music')->get();
@@ -38,8 +40,12 @@ class MusicsController extends Controller
                     ->get();
                 $musics->playlist_name = $playlist->name;
             }
-//            $musics =  Music::all();
-            return view('musics.index', ['musics' => $musics]);
+
+//            return ($user) ? ['playlists' => $this->getPlaylists($user)] : [];
+            return view('musics.index', [
+                'musics' => $musics,
+                'playlists' => ($user) ? $this->getPlaylists($user) : []
+            ]);
         }
     }
     
@@ -88,6 +94,17 @@ class MusicsController extends Controller
         $requestNew['duration'] = '00:00';
         $requestNew['user_id'] = $public ? 0 : $request->user()->id;
         return $requestNew;
+    }
+
+    public function getPlaylists($user)
+    {
+        $playlists = $user->playlists;
+        if(!$playlists->count())
+        {
+            return [];
+        }
+
+        return $playlists;
     }
 
 }

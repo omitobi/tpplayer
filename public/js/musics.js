@@ -234,6 +234,7 @@ $(document).ready( function() {
                 playNow(data.link);
                 now_playing.find("#np_name").text(data.name);
                 now_playing.find("#np_duration").text(data.duration);
+                now_playing.find("#np_core").text(data.id);
             },
             error: 'something went wrong!'
         });

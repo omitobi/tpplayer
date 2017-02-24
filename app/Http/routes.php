@@ -124,10 +124,10 @@ Route::get('api/playlists',
 );
 
 
-Route::post('api/playlists',
+Route::post('api/playlists/{playlist_id}/musics/{music_id}',
     [
-        'as' => 'api.playlist.add',
-        'uses' => 'PlaylistAPi@addPlaylist'
+        'as' => 'api.playlist.music.add',
+        'uses' => 'API\PlaylistsApiController@addMusicPlaylist'
     ]
 );
 
