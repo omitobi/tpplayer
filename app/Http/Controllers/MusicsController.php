@@ -38,17 +38,17 @@ class MusicsController extends Controller
         }
         if(Auth::check()) {
             $user = Auth::user();
-            $playlists = $user->playlists()->where('id', $request['playlist']);
-            if($playlists->first())
+            $user_playlist = $user->playlists()->where('id', $request['playlist'])->first();
+            if($user_playlist)
             {
-                $musics = $playlists->musicsplaylists()->with('music')->get();
+                $musics = $user_playlist->musicsplaylists()->with('music')->get();
+                $musics->playlist_name = $user_playlist->name;
             } else
             {
                 $musics = $playlist->musicsplaylists()->with('music')
                     ->get();
                 $musics->playlist_name = $playlist->name;
             }
-
 //            return ($user) ? ['playlists' => $this->getPlaylists($user)] : []
             return view('musics.index', [
                 'musics' => $musics,
