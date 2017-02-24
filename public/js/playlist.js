@@ -47,4 +47,51 @@ $(document).ready(function() {
             tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">No entries found.</td></tr>');
         }
     });
+
+
+
+    $("#new-playlist-form").on('submit', function (e) {
+        e.preventDefault();
+        // var url = this.route.value;
+        $this = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/api/playlists",
+            cache: false,
+            data: {
+                name: this.name.value,
+                type: this.type.value,
+                description: this.description.value,
+                _token: this._token.value
+            },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                this.submit.notify(
+                    err.message,
+                    "error"
+                );
+            },
+            success: function (response) {
+                if(response.result === 'success'){
+                    $this.find('#new-playlist-form-btn').notify(
+                        response.message,
+                        "success"
+                    );
+
+                    setTimeout(function () {
+                        location.replace('/dashboard');
+                    }, 1500);
+                } else {
+                    $this.find('#new-playlist-form-btn').notify(
+                        response.message,
+                        "error", { position:"right" }
+                    );
+                }
+                // if (typeof response.error !== 'undefined'){
+                //
+                // }
+            }
+        });
+    });
 });

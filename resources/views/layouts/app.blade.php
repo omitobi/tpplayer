@@ -88,6 +88,10 @@
     @if( Route::getCurrentRoute()->getPath() === 'musics')
         <script src="/js/musics.js"></script>
     @endif
+
+    @if( Route::getCurrentRoute()->getPath() === 'dashboard')
+        <script src="/js/playlist.js"></script>
+    @endif
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>

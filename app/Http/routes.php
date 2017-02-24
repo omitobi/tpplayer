@@ -128,6 +128,13 @@ Route::post('api/playlists/{playlist_id}/musics/{music_id}',
     ]
 );
 
+Route::post('api/playlists',
+    [
+        'as' => 'api.playlist.add',
+        'uses' => 'API\PlaylistsApiController@store'
+    ]
+);
+
 
 /**
  * Miscalleneous

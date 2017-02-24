@@ -122,4 +122,33 @@ class PlaylistsApiController extends Controller
             201
         );
     }
+
+    public function store(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return response()->json(
+                [
+                    'result' => 'errors',
+                    'message' => 'Unauthorized to create playlist'
+                ],
+                403
+            );
+        }
+        $requests = $request->only(['name', 'type', 'description']);
+
+        $user = Auth::user();
+        if(!$playlist = $user->playlists()->create($requests))
+        {
+            return response()->json([
+                'result' => 'errors',
+                'message' => 'Something went while creating playlist'
+            ], 500);
+        }
+
+        return response()->json([
+            'result' => 'success',
+            'message' => "Playlist '{$playlist->name}' created successfully"
+        ], 200);
+    }
 }
