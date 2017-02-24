@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DeletedMusic;
 use App\Music;
+use App\MusicsPlaylist;
 use App\Playlist;
 use App\User;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class MusicsApiController extends Controller
         $response = json_encode(['result' =>'errors', 'message' =>'Error when Saving']);
         //todo: validate if its an mp3
 
-
+        $user = null;
         $v = Validator::make($request->all(),  [
             'link' => 'bail|string|required|active_url|unique:musics,link'
         ]);
@@ -76,12 +77,15 @@ class MusicsApiController extends Controller
             return $response;
         }
         //playlist of 1 must exist
-        if(!$playlist = $music->musicsplaylists()->create(['playlist_id' => '1']))
+        if(!$playlist = $music->musicsplaylists()->save(new MusicsPlaylist(['playlist_id' => '1'])))
         {
-            return response()->json(['error' => 'Something went wrong while adding playlists'], 500);
+            return response()->json(
+                [   'result' => 'errors',
+                    'message' => 'Something went wrong while adding playlists'
+                ], 500);
         }
         $newMusic['id'] = $music->id;
-        $response = json_encode(['result' => 'success',
+        $response = response()->json(['result' => 'success',
             'message' => 'Successfully Added new Music!',
             'params' => $this->arrangeSafeResponse($newMusic)
         ]);

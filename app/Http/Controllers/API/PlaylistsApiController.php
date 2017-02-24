@@ -19,7 +19,7 @@ class PlaylistsApiController extends Controller
         $this->users = $users;
     }
 
-    public function addMusicPlaylist($playlist_id, $music_id, Request $request)
+    public function addMusicToPlaylist($playlist_id, $music_id, Request $request)
     {
         if(!Auth::check())
         {

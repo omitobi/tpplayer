@@ -116,18 +116,15 @@ Route::get('api/musics/deleted/deleted',
 /**
  * Playlists API
  */
-Route::get('api/playlists',
-    [
-        'as' => 'api.playlists',
-        'uses' => 'PlaylistAPi@getAll'
-    ]
-);
+Route::get('api/playlists', function (){
+    return ['coming soon'];
+});
 
 
 Route::post('api/playlists/{playlist_id}/musics/{music_id}',
     [
         'as' => 'api.playlist.music.add',
-        'uses' => 'API\PlaylistsApiController@addMusicPlaylist'
+        'uses' => 'API\PlaylistsApiController@addMusicToPlaylist'
     ]
 );
 

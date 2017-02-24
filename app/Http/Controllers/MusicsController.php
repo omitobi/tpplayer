@@ -25,11 +25,14 @@ class MusicsController extends Controller
         {
             $user = new User();
             $user->id = 0;
-            $musics = $user->playlists()->first()->musicsplaylists()->with('music')->get();
-            $musics->playlist_name = $playlist->name;
+            $musics = $user->playlists()->first()->musicsplaylists()->with('music')->get()
+                ->where('music.user_id', '0')->all();
+            $final = collect($musics);
+
+            $final->playlist_name = $playlist->name;
 
             return view('musics.index', [
-                'musics' => $musics,
+                'musics' => $final,
                 'playlists' => ($user) ? $this->getPlaylists($user) : null
             ]);
         }

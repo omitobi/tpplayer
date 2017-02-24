@@ -297,6 +297,9 @@ $(document).ready( function() {
         add_to_playlist_modal.find('h5').text("Adding, '"+np_name+"' to a playlist");
     });
 
+    /**
+     * Add the music to playlist
+     */
     $(".mtp_core_add").on('click', function () {
         var mtp_table = $('#add-to-playlist-tb');
         var sel_playlist = $(this).closest('tr');
