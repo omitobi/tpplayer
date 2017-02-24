@@ -19,9 +19,9 @@ class PlaylistsController extends Controller
 
     public function show()
     {
-        $user = Auth::user();
-        $playlists = $user->musics()->with('playlists.musicplaylists');
-        return $playlists;
+       /* $user = Auth::user();
+        $playlists = $user->musics()->with('playlists.musicplaylists');*/
+        return redirect('/');
 
     }
 

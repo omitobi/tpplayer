@@ -40,7 +40,7 @@
                         <td>{{ $playlist->name }}</td>
                         <td>{{ $playlist->type }}</td>
                         <td>{{ $playlist->description }}</td>
-                        <td><a style="height: 25px" class="label label-info pl_play">
+                        <td><a href="/musics?playlist={{ $playlist->id }}" style="height: 25px" class="label label-info pl_play">
                                 <i class="glyphicon glyphicon-music"></i>Play</a></td>
                         <td><a style="height: 25px" class="label label-success pl_edit">
                                 <i class="glyphicon glyphicon-pencil"></i></a></td>
