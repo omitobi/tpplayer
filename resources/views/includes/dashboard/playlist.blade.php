@@ -1,8 +1,11 @@
 
 <div>
 <div class="row">
+    <div class="col-lg-8">
+       Playlists
+    </div>
     <div class="col-lg-4">
-       Playlist
+        <a href="" class="btn bg-info">Create new Playlist</a>
     </div>
 </div>
 <div class="row">

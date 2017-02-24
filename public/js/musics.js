@@ -219,9 +219,10 @@ $(document).ready( function() {
 
 
     function playNext() {
-
+        var now_playing = $('#now_playing');
         var mId = $("#fullList").find("tr.active").attr('id');
         var ID = mId.split("m").pop();
+
 
         document.title = "TP_PLayer";
         $.ajax({
@@ -231,6 +232,8 @@ $(document).ready( function() {
             success: function (data) {
                 document.title = document.title.concat(" - (Playing) ").concat(data.name);
                 playNow(data.link);
+                now_playing.find("#np_name").text(data.name);
+                now_playing.find("#np_duration").text(data.duration);
             },
             error: 'something went wrong!'
         });
