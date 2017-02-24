@@ -5,7 +5,7 @@
        Playlists
     </div>
     <div class="col-lg-4">
-        <a href="" class="btn bg-info">Create new Playlist</a>
+        <a class="btn bg-info" data-toggle="modal" data-target=".new-playlist-sm">Create new Playlist</a>
     </div>
 </div>
 <div class="row">
@@ -36,11 +36,18 @@
                     <tbody>
                     @foreach($playlists as $playlist)
                     <tr>
+                        <td class="hidden">{{ $playlist->id }}</td>
                         <td>{{ $playlist->name }}</td>
                         <td>{{ $playlist->type }}</td>
                         <td>{{ $playlist->description }}</td>
-                        <td><a style="height: 25px" class="label label-info">Select playlist</a></td>
-                        <td class="hidden">{{ $playlist->id }}</td>
+                        <td><a style="height: 25px" class="label label-info pl_play">
+                                <i class="glyphicon glyphicon-music"></i>Play</a></td>
+                        <td><a style="height: 25px" class="label label-success pl_edit">
+                                <i class="glyphicon glyphicon-pencil"></i></a></td>
+                        <td><a style="height: 25px" class="label label-primary pl_settings">
+                                <i class="glyphicon glyphicon-star"></i></a></td>
+                        <td><a style="height: 25px" class="label label-danger pl_delete">
+                                <i class="glyphicon glyphicon-remove"></i></a></td>
                     </tr>
                     @endforeach
                     </tbody>

@@ -85,7 +85,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/notify.min.js"></script>
     <script type="application/javascript" src="/js/act.js"></script>
-    <script src="/js/musics.js"></script>
+    @if( Route::getCurrentRoute()->getPath() === 'musics')
+        <script src="/js/musics.js"></script>
+    @endif
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
