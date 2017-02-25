@@ -1,7 +1,7 @@
 
 
 $(document).ready( function() {
-
+    var add_to_playlist_modal = $('#music-to-playlist-modal');
     // $(".updater").on('click', function () {
     //     alert("OOOOOOOOOOO");
     // });
@@ -59,7 +59,6 @@ $(document).ready( function() {
                 _token: this._token.value
             },
             success: function (response) {
-                response = JSON.parse(response);
                 if(response.result === 'success'){
                     $this.find('.form-control').notify(
                         response.message,
@@ -275,7 +274,6 @@ $(document).ready( function() {
 
             });
 
-
             /*$('a').on('click', function () {
              var $this = this.toString();
              if(/^http/.test($this) && ($this.endsWith('.mp3') || $this.endsWith('.MP3')))
@@ -290,5 +288,55 @@ $(document).ready( function() {
         });
     });
 
+    $(".add-to-playlist-btn").on('click', function () {
+        var now_playing_tb = $('#now-playing-tb');
+        var np_name = now_playing_tb.find('#np_name').text();
+        var np_core = now_playing_tb.find('#np_core').text();
+        add_to_playlist_modal.find('#mtp_core_music').text(np_core);
+        add_to_playlist_modal.find('h5').text("Adding, '"+np_name+"' to a playlist");
+    });
+
+    /**
+     * Add the music to playlist
+     */
+    $(".mtp_core_add").on('click', function () {
+        var mtp_table = $('#add-to-playlist-tb');
+        var sel_playlist = $(this).closest('tr');
+        var playlist_id = sel_playlist.children(':first-child').text();
+        var music_id = mtp_table.find('#mtp_core_music').text();
+        var _token = mtp_table.find('input[type=hidden]').val();
+        $.ajax({
+            type: "POST",
+            url: "/api/playlists/"+playlist_id+"/musics/"+music_id,
+            cache: false,
+            data: {
+                _token: _token
+            },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                add_to_playlist_modal.find('.modal-footer').find('button').notify(
+                    err.message,
+                    "error"
+                );
+            },
+            success: function (response) {
+                if (response.result === 'success') {
+                    add_to_playlist_modal.find('.modal-footer').find('button').notify(
+                        response.message,
+                        "success"
+                    );
+
+                    setTimeout(function () {
+                        add_to_playlist_modal.modal('toggle');
+                    }, 2000);
+                } else {
+                    add_to_playlist_modal.find('.modal-footer').find('button').notify(
+                        response.message,
+                        "error"
+                    );
+                }
+            }
+        });
+    });
 
 });
