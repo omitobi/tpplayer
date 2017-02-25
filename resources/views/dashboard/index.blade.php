@@ -10,6 +10,7 @@
                     <div class="panel-body">
                         @include('includes.dashboard.playlist')
                         @include('includes.modals.playlist_new')
+                        @include('includes.modals.playlist_update')
                     </div>
                     <hr>
                     <div class="panel-body">

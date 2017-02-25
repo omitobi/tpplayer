@@ -24,7 +24,7 @@
                 </form>
             </div>
             <div class="col-md-8">
-                <table class="table table-list-search">
+                <table class="table table-list-search" id="pl_list_tb">
                     <thead>
                     <tr>
                         <th><i>Name</i></th>
@@ -36,13 +36,13 @@
                     <tbody>
                     @foreach($playlists as $playlist)
                     <tr>
-                        <td class="hidden">{{ $playlist->id }}</td>
-                        <td>{{ $playlist->name }}</td>
-                        <td>{{ $playlist->type }}</td>
-                        <td>{{ $playlist->description }}</td>
+                        <td class="hidden pl_core">{{ $playlist->id }}</td>
+                        <td class="pl_name"><b>{{ $playlist->name }}</b></td>
+                        <td class="pl_type">{{ $playlist->type }}</td>
+                        <td class="pl_description">{{ $playlist->description }}</td>
                         <td><a href="/musics?playlist={{ $playlist->id }}" style="height: 25px" class="label label-info pl_play">
                                 <i class="glyphicon glyphicon-music"></i>Play</a></td>
-                        <td><a style="height: 25px" class="label label-success pl_edit">
+                        <td><a style="height: 25px" class="label label-success pl_edit" data-toggle="modal" data-target=".update-playlist-sm">
                                 <i class="glyphicon glyphicon-pencil"></i></a></td>
                         <td><a style="height: 25px" class="label label-primary pl_settings">
                                 <i class="glyphicon glyphicon-star"></i></a></td>

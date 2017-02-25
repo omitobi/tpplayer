@@ -15,6 +15,10 @@
 //    return view('welcome');
 //});
 
+Route::get('/api/misc/share',
+    function (\Symfony\Component\HttpFoundation\Request $request){
+    view()->share($request->key, $request->value);
+});
 
 
 Route::auth();
@@ -132,6 +136,13 @@ Route::post('api/playlists',
     [
         'as' => 'api.playlist.add',
         'uses' => 'API\PlaylistsApiController@store'
+    ]
+);
+
+Route::put('api/playlists/{playlist_id}',
+    [
+        'as' => 'api.playlist.update',
+        'uses' => 'API\PlaylistsApiController@update'
     ]
 );
 

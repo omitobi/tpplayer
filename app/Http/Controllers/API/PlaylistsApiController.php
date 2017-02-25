@@ -137,6 +137,17 @@ class PlaylistsApiController extends Controller
         }
         $requests = $request->only(['name', 'type', 'description']);
 
+        if($this->hasEmpty($requests))
+        {
+            return response()->json(
+                [
+                    'result' => 'errors',
+                    'message' => 'One of the fields are invalid'
+                ],
+                400
+            );
+        }
+
         $user = Auth::user();
         if(!$playlist = $user->playlists()->create($requests))
         {
@@ -150,5 +161,55 @@ class PlaylistsApiController extends Controller
             'result' => 'success',
             'message' => "Playlist '{$playlist->name}' created successfully"
         ], 200);
+    }
+
+    public function update($playlist_id, Request $request)
+    {
+        if(!Auth::check())
+        {
+            return response()->json(
+                [
+                    'result' => 'errors',
+                    'message' => 'Unauthorized to update playlist'
+                ],
+                403
+            );
+        }
+        $requests = $request->only(['name', 'type', 'description']);
+        if($this->hasEmpty($requests))
+        {
+            return response()->json(
+                [
+                    'result' => 'errors',
+                    'message' => 'One of the fields are invalid'
+                ],
+                400
+            );
+        }
+        $user = Auth::user();
+
+        if(!$playlist = $user->playlist($playlist_id)
+            ->update($requests))
+        {
+            return response()->json([
+                'result' => 'errors',
+                'message' => 'Something went while updating playlist'
+            ], 500);
+        }
+
+
+        return response()->json([
+            'result' => 'success',
+            'message' => "Playlist updated successfully"
+        ], 200);
+
+    }
+
+    protected function hasEmpty($requests)
+    {
+        $requests = array_values($requests);
+        if(in_array(null, $requests))
+            return true;
+        return false;
     }
 }

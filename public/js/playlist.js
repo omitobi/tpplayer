@@ -4,6 +4,7 @@
 
 $(document).ready(function() {
     var activeSystemClass = $('.list-group-item.active');
+    var update_playlist_modal = $('#update-playlist-modal');
 
     //something is entered in search form
     $('#system-search').keyup( function() {
@@ -67,7 +68,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 var err = JSON.parse(xhr.responseText);
-                this.submit.notify(
+                $this.find('#new-playlist-form-btn').notify(
                     err.message,
                     "error"
                 );
@@ -84,6 +85,65 @@ $(document).ready(function() {
                     }, 1500);
                 } else {
                     $this.find('#new-playlist-form-btn').notify(
+                        response.message,
+                        "error", { position:"right" }
+                    );
+                }
+                // if (typeof response.error !== 'undefined'){
+                //
+                // }
+            }
+        });
+    });
+    
+    $(".pl_edit").on('click', function () {
+        // var pl_list_tb = $('#pl_list_tb');
+        var pl_ = $(this).closest('tr');
+        var pl_name = pl_.find('.pl_name').text();
+        var pl_type = pl_.find('.pl_type').text();
+        var pl_core = pl_.find('.pl_core').text();
+        var pl_description = pl_.find('.pl_description').text();
+        update_playlist_modal.find('.upl_core_playlist').val(pl_core);
+        update_playlist_modal.find('input[name=name]').val(pl_name);
+        update_playlist_modal.find('input[name=type]').val(pl_type);
+        update_playlist_modal.find('textarea').val(pl_description);
+        update_playlist_modal.find('h5').text("Updating '"+pl_name+"' playlist");
+    });
+
+
+    $("#update-playlist-form").on('submit', function (e) {
+        e.preventDefault();
+        $this = $(this);
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/playlists/"+this.upl_core_playlist.value,
+            cache: false,
+            data: {
+                name: this.name.value,
+                type: this.type.value,
+                description: this.description.value,
+                _token: this._token.value
+            },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                $this.find('.update_pl_btn').notify(
+                    err.message,
+                    "error"
+                );
+            },
+            success: function (response) {
+                if(response.result === 'success'){
+                    $this.find('.update_pl_btn').notify(
+                        response.message,
+                        "success"
+                    );
+
+                    setTimeout(function () {
+                        location.replace('/dashboard');
+                    }, 1500);
+                } else {
+                    $this.find('.update_pl_btn').notify(
                         response.message,
                         "error", { position:"right" }
                     );
