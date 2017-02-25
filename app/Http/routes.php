@@ -146,6 +146,13 @@ Route::put('api/playlists/{playlist_id}',
     ]
 );
 
+Route::delete('api/playlists/{playlist_id}',
+    [
+        'as' => 'api.playlist.delete',
+        'uses' => 'API\PlaylistsApiController@destroy'
+    ]
+);
+
 
 /**
  * Miscalleneous

@@ -5,7 +5,7 @@
 $(document).ready(function() {
     var activeSystemClass = $('.list-group-item.active');
     var update_playlist_modal = $('#update-playlist-modal');
-
+    var pl_del_modal = $('#pl-delete-modal');
     //something is entered in search form
     $('#system-search').keyup( function() {
         var that = this;
@@ -151,6 +151,57 @@ $(document).ready(function() {
                 // if (typeof response.error !== 'undefined'){
                 //
                 // }
+            }
+        });
+    });
+
+
+    $(".pl_delete").on('click', function () {
+        var pl_ = $(this).closest('tr');
+        var pl_name = pl_.find('.pl_name').text();
+        var pl_core = pl_.find('.pl_core').text();
+
+        // $('#delete-modal').find('#exampleModalLabel').text('Delete '+ sel_name);
+        pl_del_modal.find('h5').text('Playlist: '+pl_name);
+        pl_del_modal.find('form input[name=pl_delete_core]').val(pl_core);
+    });
+
+
+    /**
+     * Delete a playlist
+     */
+    pl_del_modal.find(".delete-pl-btn").on('click', function (e) {
+        $this = $(this);
+        var pl_delete_core = pl_del_modal.find('.pl_delete_core').val();
+        $.ajax({
+            type: "DELETE",
+            url: "/api/playlists/" + pl_delete_core,
+            cache: false,
+            data: {_token: pl_del_modal.find('#pl-delete-music-form').children(':first-child').val()},
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                $this.notify(
+                    err.message,
+                    "error"
+                );
+            },
+            success: function (response) {
+                if (response.result === 'success') {
+                    $this.notify(
+                        response.message,
+                        "success"
+                    );
+
+                    setTimeout(function () {
+                        location.replace('/dashboard');
+                    }, 1500);
+
+                } else {
+                    $this.notify(
+                        response.message,
+                        "error"
+                    );
+                }
             }
         });
     });

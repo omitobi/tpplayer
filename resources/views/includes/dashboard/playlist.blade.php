@@ -46,7 +46,7 @@
                                 <i class="glyphicon glyphicon-pencil"></i></a></td>
                         <td><a style="height: 25px" class="label label-primary pl_settings">
                                 <i class="glyphicon glyphicon-star"></i></a></td>
-                        <td><a style="height: 25px" class="label label-danger pl_delete">
+                        <td><a style="height: 25px" class="label label-danger pl_delete" data-toggle="modal" data-target=".pl-delete-modal-sm">
                                 <i class="glyphicon glyphicon-remove"></i></a></td>
                     </tr>
                     @endforeach

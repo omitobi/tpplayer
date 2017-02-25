@@ -11,6 +11,7 @@
                         @include('includes.dashboard.playlist')
                         @include('includes.modals.playlist_new')
                         @include('includes.modals.playlist_update')
+                        @include('includes.modals.playlist_delete')
                     </div>
                     <hr>
                     <div class="panel-body">

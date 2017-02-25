@@ -202,8 +202,29 @@ class PlaylistsApiController extends Controller
             'result' => 'success',
             'message' => "Playlist updated successfully"
         ], 200);
-
     }
+
+
+    public function destroy($playlist_id )
+    {
+        if (!Auth::check()) {
+            return response()->json(['result' => 'errors', 'message' => 'You cannot delete this playlist'], 403);
+        }
+        $user = Auth::user();
+        if (!$playlist = $user->playlist($playlist_id)) {
+            return response()->json(['result' => 'errors', 'message' => 'Playlist does not exist'], 404);
+        }
+        /*if(!$user->deletedmusics()->create(['music_id' => $music->id, 'link' => $music->link])) {
+            return response()->json(['result' => 'errors', 'message' => 'Error backing music up when deleting'], 500);
+        }*/
+        if (!$playlist->delete()) {
+            return response()->json(['result' => 'errors', 'message' => 'Error when deleting playlist'], 500);
+        }
+        return response()->json(
+            ['result' => 'success', 'message' => "playlist deleted successfully"]
+            , 200);
+    }
+
 
     protected function hasEmpty($requests)
     {
