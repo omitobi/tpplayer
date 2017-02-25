@@ -211,6 +211,14 @@ Route::get('oldmusic',
     ]
 );
 
+Route::post('api/misc/playlists_loads',
+    [
+        'as' => 'load.playlists.musics',
+        'uses' => 'MISCUtilitiesController@loadPlaylist'
+    ]
+);
+
+
 Route::get('api/okay',
     [
         'as' => 'api.music.one',
