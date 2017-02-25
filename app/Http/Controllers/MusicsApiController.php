@@ -85,11 +85,10 @@ class MusicsApiController extends Controller
                 ], 500);
         }
         $newMusic['id'] = $music->id;
-        $response = response()->json(['result' => 'success',
+        return response()->json(['result' => 'success',
             'message' => 'Successfully Added new Music!',
             'params' => $this->arrangeSafeResponse($newMusic)
         ]);
-        return $response;
     }
 
     public function updateOne(Request $request, Music $music){

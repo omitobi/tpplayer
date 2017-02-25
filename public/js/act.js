@@ -59,7 +59,6 @@ $(document).ready( function() {
                 _token: this._token.value
             },
             success: function (response) {
-                response = JSON.parse(response);
                 if(response.result === 'success'){
                     $this.find('.form-control').notify(
                         response.message,
