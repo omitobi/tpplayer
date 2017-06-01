@@ -25,9 +25,10 @@ class MusicsController extends Controller
         {
             $user = new User();
             $user->id = 0;
-            $musics = $user->playlists()->first()->musicsplaylists()->with('music')->get()
-                ->where('music.user_id', '0')->all();
-            $final = collect($musics);
+            $musics = $user->playlists()->firstOrFail()->musicsplaylists()->with('music')->get()
+                ->where('music.user_id', 0);
+
+            $final = $musics;
 
             $final->playlist_name = $playlist->name;
 
