@@ -13,8 +13,13 @@ class MusicsController extends Controller
 {
     //
     public function getAllMusic(){
-        $musics = Music::all()->where('user_id', "0");
-        if(Auth::check()) { $musics =  Music::all(); }
+        if(Auth::check()) {
+            $musics =  Music::all();
+        } else {
+
+            $musics = Music::where('user_id', "0")->get();
+        }
+
         return view('musics.index', ['musics' => $musics]);
     }
     
