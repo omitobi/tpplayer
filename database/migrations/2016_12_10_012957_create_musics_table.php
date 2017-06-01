@@ -17,6 +17,7 @@ class CreateMusicsTable extends Migration
             $table->integer('user_id');
             $table->string('link')->unique();
             $table->string('name');
+            $table->string('author', 100);
             $table->string('duration');
             $table->timestamps();
         });

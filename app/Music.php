@@ -13,10 +13,15 @@ class Music extends Model
         $this->belongsTo(User::class);
     }
 
+    public function musicsplaylists()
+    {
+        return $this->hasMany(MusicsPlaylist::class);
+    }
+
     public function isPublic(){
         return !$this->user_id ? $this : false;
     }
-    
+
     public function isOwner($user_id){
         return ($this->user_id  === $user_id) ? $this : false;
     }

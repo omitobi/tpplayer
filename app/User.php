@@ -32,4 +32,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(DeletedMusic::class, 'deleter_id');
     }
+
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
+
+    public function scopePlaylist($query, $playlist_id)
+    {
+        return $this->playlists()->find($playlist_id);
+    }
 }

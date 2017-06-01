@@ -64,8 +64,9 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list"></i>Playlists</a></li>
+                                <li><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -84,7 +85,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/notify.min.js"></script>
     <script type="application/javascript" src="/js/act.js"></script>
-    <script src="/js/musics.js"></script>
+    @if( Route::getCurrentRoute()->getPath() === 'musics')
+        <script src="/js/musics.js"></script>
+    @endif
+
+    @if( Route::getCurrentRoute()->getPath() === 'dashboard')
+        <script src="/js/playlist.js"></script>
+    @endif
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
