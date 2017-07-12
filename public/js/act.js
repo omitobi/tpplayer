@@ -192,6 +192,7 @@ $(document).ready( function() {
             if (status == "error") {
                 var msg = "Sorry but there was an error: ";
                 $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                return ;
             }
 
 
@@ -211,6 +212,12 @@ $(document).ready( function() {
                 }
             });
 
+            $('#_base_checker').on('click', function () {
+                $('#bulk-site').find('input[type="checkbox"]').map(function () {
+                    console.log($(this));
+                });
+                // alert('yead');
+            });
 
             $('#_base_tp_src').on('click', function () {
                 var checkValues = bulk_add_modal.find('input[type=checkbox]:checked').map(function () {

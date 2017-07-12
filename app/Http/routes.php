@@ -164,6 +164,7 @@ Route::get('api/links/extracts',
         function(\Illuminate\Http\Request $request){
             $url = $request->get('url');
             $url_element = "<button class='btn btn-primary' id='_base_tp_src' value='".$url."'> Load All</button> \n";
+            $url_element .= "<button class='btn btn-primary' id='_base_checker' value='".$url."'> Check all mp3</button> \n";
             // Ref: http://codular.com/curl-with-php
             // Get cURL resource
             $curl = curl_init();
