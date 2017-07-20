@@ -175,16 +175,29 @@ class MusicsApiController extends Controller
             $new_musics[] = $this->separateMusic(['link' => $link], ['user_id' => $user_id]);
         }
 
+//        dd($new_musics);
+
         if(empty($new_musics))
         {
             response()->json(['result' => 'errors', 'message' => 'Something went wrong while separating music'], 500);
         }
+//
+//        if( $music_ids = $user->musics()->insert(
+//            $new_musics
+//        )){
+//            response()->json(['result' => 'errors', 'message' => 'Something went wrong while adding the musics'], 500);
+//        }
 
-        if( !$user->musics()->insert(
-            $new_musics
-        )){
-            response()->json(['result' => 'errors', 'message' => 'Something went wrong while adding the musics'], 500);
+        $playlists = [];
+        foreach ($new_musics as $key => $new_music) {
+            if (!$music_id = $user->musics()->insertGetId($new_music)) {
+              return  response()->json(['result' => 'errors', 'message' => 'Something went wrong while adding the musics'], 500);
+            }
+            $playlists[] = ['music_id' => $music_id];
         }
+
+        $playlist = Playlist::findOrFail(1);
+        $playlist->musicsplaylists()->insert($playlists);
         return response()->json(['result' => 'success', 'message' => 'Added all musics successfully'], 200);
     }
 
