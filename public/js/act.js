@@ -212,12 +212,17 @@ $(document).ready( function() {
                 }
             });
 
-            $('#_base_checker').on('click', function () {
-                $('#bulk-site').find('input[type="checkbox"]').map(function () {
-                    console.log($(this));
-                });
+            $('#_base_checker').click( function () {
+                $('#bulk-site').find('li input[type="checkbox"]').each(  function (chkbx) {
+
+                    $(this).prop('checked', $(this).prop('checked'));
+            });
                 // alert('yead');
             });
+
+            // $("#checkAll").click(function(){
+            //     $('input:checkbox').not(this).prop('checked', this.checked);
+            // });
 
             $('#_base_tp_src').on('click', function () {
                 var checkValues = bulk_add_modal.find('input[type=checkbox]:checked').map(function () {
