@@ -60,12 +60,22 @@
             <div class="col-md-4 col-sm-0">
             </div>
         </div>
-        <div class="row" id="music_title">
+        <div class="row">
             <div class="col-md-4 col-sm-0">
             </div>
             <div class="col-md-4 offset-2 col-sm-12">
                 <hr>
                 Playing: <h4>{{ $music->name }}</h4>
+            </div>
+            <div class="col-md-4 col-sm-0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-0">
+            </div>
+            <div class="col-md-4 offset-2 col-sm-12">
+                <hr>
+               More at: <a href="{{ url('/musics') }}">Tp Player</a>
             </div>
             <div class="col-md-4 col-sm-0">
             </div>
