@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Music;
 
 use App\Music;
+use App\Util\Util;
 use Carbon\Carbon;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -15,12 +16,8 @@ class MusicController extends Controller
 
     public function share($music_id)
     {
-        Music::findOrFail($music_id);
-        $time = Carbon::now()->addHour()->toDateTimeString();
-        $identifier = encrypt($music_id.'_to_'.$time);
-
-        $share_url = route('music.shared', $identifier);
-        return $share_url;
+        $share_url = Util::makeShareLink($music_id);
+        return ['message' => $share_url];
     }
 
     public function playShared($identifier)
