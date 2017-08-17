@@ -26,7 +26,7 @@ class MusicController extends Controller
     public function playShared($identifier)
     {
         try{
-            $id_str = decrypt($identifier.'1lksdnsakjhdsjk');
+            $id_str = decrypt($identifier);
             $ids    =  explode('_to_', $id_str);
             $stamp  = Carbon::parse($ids[1])->lessThan(Carbon::now());
             if($stamp) {
