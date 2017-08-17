@@ -1,4 +1,9 @@
 $(document).ready( function() {
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
     var player = document.getElementById('player');
     var random_button = $('#controller').find('#random');
     var repeat_button = $('#controller').find('#repeat');
@@ -235,6 +240,10 @@ $(document).ready( function() {
                 now_playing.find("#np_name").text(data.name);
                 now_playing.find("#np_duration").text(data.duration);
                 now_playing.find("#np_core").text(data.id);
+
+                $.get('/shares/music/'.concat(ID)).done(function (result) {
+                    now_playing.find("#shared_link").find('input').val(result.message);
+                })
             },
             error: 'something went wrong!'
         });

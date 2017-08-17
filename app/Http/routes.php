@@ -19,8 +19,9 @@ Route::get('/api/misc/share',
     function (\Symfony\Component\HttpFoundation\Request $request){
     view()->share($request->key, $request->value);
 });
-Route::post('emails', 'PlaylistsApiController@AddEmails');
-Route::get('emails', 'PlaylistsApiController@getEmails');
+
+Route::get('shares/music/{identifier}', 'Music\MusicController@share')->name('music.share')->middleware('auth');
+Route::get('shared/music/{identifier}', 'Music\MusicController@playShared')->name('music.shared');
 
 Route::auth();
 
