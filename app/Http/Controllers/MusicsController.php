@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Music;
+use App\Playlist;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,49 @@ use Illuminate\Support\Facades\Auth;
 class MusicsController extends Controller
 {
     //
-    public function getAllMusic(){
-        $musics = Music::all()->where('user_id', "0");
-        if(Auth::check()) { $musics =  Music::all(); }
-        return view('musics.index', ['musics' => $musics]);
+    public function getAllMusic(Request $request){
+
+        $user = null;
+        if(!$request->has('playlist') || !$request->get('playlist'))
+        {
+            $request['playlist'] = 1;
+        }
+        $playlist = Playlist::where('user_id', '0')->first();
+        if(Auth::guest())
+        {
+            $user = new User();
+            $user->id = 0;
+            $musics = $user->playlists()->firstOrFail()->musicsplaylists()->with('music')->get()
+                ->where('music.user_id', 0);
+
+            $final = $musics;
+
+            $final->playlist_name = $playlist->name;
+
+            return view('musics.index', [
+                'musics' => $final,
+                'playlists' => ($user) ? $this->getPlaylists($user) : null
+            ]);
+        }
+        if(Auth::check()) {
+            $user = Auth::user();
+            $user_playlist = $user->playlists()->where('id', $request['playlist'])->first();
+            if($user_playlist)
+            {
+                $musics = $user_playlist->musicsplaylists()->with('music')->get();
+                $musics->playlist_name = $user_playlist->name;
+            } else
+            {
+                $musics = $playlist->musicsplaylists()->with('music')
+                    ->get();
+                $musics->playlist_name = $playlist->name;
+            }
+//            return ($user) ? ['playlists' => $this->getPlaylists($user)] : []
+            return view('musics.index', [
+                'musics' => $musics,
+                'playlists' => ($user) ? $this->getPlaylists($user) : null
+            ]);
+        }
     }
     
     public function editOne(Music $music){
@@ -63,6 +103,17 @@ class MusicsController extends Controller
         $requestNew['duration'] = '00:00';
         $requestNew['user_id'] = $public ? 0 : $request->user()->id;
         return $requestNew;
+    }
+
+    public function getPlaylists($user)
+    {
+        $playlists = $user->playlists;
+        if(!$playlists->count())
+        {
+            return [];
+        }
+
+        return $playlists;
     }
 
 }

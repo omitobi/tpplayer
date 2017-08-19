@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMusicsTable extends Migration
+class CreateEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,9 @@ class CreateMusicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('musics', function (Blueprint $table) {
+        Schema::create('emails', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('link')->unique();
-            $table->string('name');
-            $table->string('author', 100);
-            $table->string('duration');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateMusicsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('musics');
+        Schema::drop('emails');
     }
 }

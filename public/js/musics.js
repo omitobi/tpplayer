@@ -1,6 +1,12 @@
 $(document).ready( function() {
-    var player = document.getElementById('player');
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    var player = document.getElementById('player');
+    var random_button = $('#controller').find('#random');
+    var repeat_button = $('#controller').find('#repeat');
     // // $(player).attr('src', 'http://lgfkc.gcichurches.org/worshipmusic/mp3/Glorious Day (Living He Loved Me).mp3');
     //
     // playNow();
@@ -32,8 +38,15 @@ $(document).ready( function() {
         //         break;
         //     }
         // }
-        setNext();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else if(repeat_button.hasClass("y_repeat")) {
+            playNext();
+        }else{
+            setNext();
+            playNext();
+        }
         // $(player).on("error", function (e) {
         //     playNext();
         //     return false;
@@ -42,40 +55,39 @@ $(document).ready( function() {
     });
 
     function setNext(){
-        for(k=0; k<IDs.length; k++){
-            if($('#'.concat(IDs[k])).hasClass('active')){
-                console.log('yeah playing next'.concat('#'.concat(IDs[k])));
-                if(!$('#fullList #'.concat(IDs[k])).is(":last-child")) {
-                    $('#'.concat(IDs[k])).removeClass('active');
-                    $('#'.concat(IDs[k])).next().addClass('active');
-                    break;
-                }else {
-                    $( '#'.concat(IDs[k]) ).removeClass('active');
-                    playFirst();
-                    break;
+
+            for (k = 0; k < IDs.length; k++) {
+                if ($('#'.concat(IDs[k])).hasClass('active')) {
+                    console.log('yeah playing next'.concat('#'.concat(IDs[k])));
+                    if (!$('#fullList #'.concat(IDs[k])).is(":last-child")) {
+                        $('#'.concat(IDs[k])).removeClass('active');
+                        $('#'.concat(IDs[k])).next().addClass('active');
+                        break;
+                    } else {
+                        $('#'.concat(IDs[k])).removeClass('active');
+                        playFirst();
+                        break;
+                    }
+
                 }
-
             }
-        }
-
-
     }
 
     function setPrev(){
-        for(k=(IDs.length-1); k>=0; k--){
-            if($('#'.concat(IDs[k])).hasClass('active')){
-                console.log('yeah Previous next'.concat('#'.concat(IDs[k])));
-                if(!$('#fullList #'.concat(IDs[k])).is(":first-child")) {
-                $( '#'.concat(IDs[k]) ).removeClass('active');
-                $( '#'.concat(IDs[k]) ).prev().addClass('active');
-                break;
-            }else{
-                    $( '#'.concat(IDs[k]) ).removeClass('active');
-                    playLast();
-                    break;
+            for(k=(IDs.length-1); k>=0; k--){
+                if($('#'.concat(IDs[k])).hasClass('active')){
+                    console.log('yeah Previous next'.concat('#'.concat(IDs[k])));
+                    if(!$('#fullList #'.concat(IDs[k])).is(":first-child")) {
+                        $( '#'.concat(IDs[k]) ).removeClass('active');
+                        $( '#'.concat(IDs[k]) ).prev().addClass('active');
+                        break;
+                    }else{
+                        $( '#'.concat(IDs[k]) ).removeClass('active');
+                        playLast();
+                        break;
+                    }
                 }
             }
-        }
     }
 
     // isWorkingMusic('http://lgfkc.gcichurches.org/worshipmusic/mp33/Glorious Day (Living He Loved Me).mp3');
@@ -131,13 +143,23 @@ $(document).ready( function() {
     // alert($("#fullList").find("#m5").text());
 
     $("#controller").find('#next').on('click', function () {
-        setNext();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else {
+            setNext();
+            playNext();
+        }
     });
 
     $("#controller").find('#prev').on('click', function () {
-        setPrev();
-        playNext();
+        if(random_button.hasClass( "y_rand" ))
+        {
+            playRandom();
+        } else {
+            setPrev();
+            playNext();
+        }
     });
 
     function playLast() {
@@ -152,11 +174,61 @@ $(document).ready( function() {
         playNext();
     }
 
+    function playRandom() {
+        var all_music_rows = $("#fullList").find('tr');
+        var rand_music = Math.floor( Math.random() * all_music_rows.length );
+        $('tr').removeClass('active');
+        $(all_music_rows[rand_music]).addClass('active');
+        playNext();
+        // if(jQuery.inArray( "m"+rand_music, IDs ))
+        // {
+        //
+        // }
+    }
+
+    random_button.on('click', function () {
+        if($( this ).hasClass( "y_rand" )){
+            $(this).removeClass('y_rand');
+        } else {
+            repeat_button.removeClass('y_repeat');
+            $(this).addClass('y_rand');
+        }
+    });
+
+
+    /**
+     * Repeat the present music
+     */
+    repeat_button.on('click', function () {
+        if($( this ).hasClass( "y_repeat" )){
+            $(this).removeClass('y_repeat');
+        } else {
+            random_button.removeClass('y_rand');
+            $(this).addClass('y_repeat');
+        }
+    });
+
+
     playFirst();
 
+    /**
+     * Play by selecting clicking one of the table rows
+     */
+    $("#fullList").find('tr').on('click', function () {
+        $('tr').removeClass('active');
+        $(this).addClass('active');
+        playNext();
+    });
+
+
+
+
     function playNext() {
+        var now_playing = $('#now_playing');
         var mId = $("#fullList").find("tr.active").attr('id');
         var ID = mId.split("m").pop();
+
+
         document.title = "TP_PLayer";
         $.ajax({
             url: '/api/musics/'.concat(ID),
@@ -165,6 +237,13 @@ $(document).ready( function() {
             success: function (data) {
                 document.title = document.title.concat(" - (Playing) ").concat(data.name);
                 playNow(data.link);
+                now_playing.find("#np_name").text(data.name);
+                now_playing.find("#np_duration").text(data.duration);
+                now_playing.find("#np_core").text(data.id);
+
+                $.get('/shares/music/'.concat(ID)).done(function (result) {
+                    now_playing.find("#shared_link").find('input').val(result.message);
+                })
             },
             error: 'something went wrong!'
         });
@@ -177,7 +256,7 @@ $(document).ready( function() {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data); //todo: load music by ajax and not by laravel blade
             },
             error: 'something went wrong!'
         });

@@ -24,12 +24,22 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function music(){
-        $this->hasMany(Music::class);
+    public function musics(){
+        return $this->hasMany(Music::class);
     }
 
     public function deletedmusics()
     {
         return $this->hasMany(DeletedMusic::class, 'deleter_id');
+    }
+
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
+
+    public function scopePlaylist($query, $playlist_id)
+    {
+        return $this->playlists()->find($playlist_id);
     }
 }
