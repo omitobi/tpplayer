@@ -25,10 +25,10 @@ class MusicController extends Controller
         try{
             $id_str = decrypt($identifier);
             $ids    =  explode('_to_', $id_str);
-            $stamp  = Carbon::parse($ids[1])->lessThan(Carbon::now());
-            if($stamp) {
-                return redirect('/');
-            }
+//            $stamp  = Carbon::parse($ids[1])->lessThan(Carbon::now());
+//            if($stamp) {
+//                return redirect('/');
+//            }
             $music = Music::findOrFail($ids[0]);
             return view('shares.music', compact('music'));
         } catch (DecryptException $exception) {
