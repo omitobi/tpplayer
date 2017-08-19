@@ -29,10 +29,13 @@ class MusicController extends Controller
 //            if($stamp) {
 //                return redirect('/');
 //            }
-            $music = Music::findOrFail($ids[0]);
+            $music = Music::find($ids[0]);
+            if (!$music) {
+                return redirect('/musics');
+            }
             return view('shares.music', compact('music'));
         } catch (DecryptException $exception) {
-            return redirect('/');
+            return redirect('/musics');
         }
     }
 }
