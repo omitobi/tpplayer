@@ -21,7 +21,8 @@ Route::get('/api/misc/share',
 });
 
 Route::get('shares/music/{identifier}', 'Music\MusicController@share')->name('music.share')->middleware('auth');
-Route::get('shared/music/{identifier}', 'Music\MusicController@playShared')->name('music.shared');
+Route::get('shared/music/{identifier}', 'Music\MusicController@playSharedv1');
+Route::get('sharer/music/{identifier}/{music_slug?}', 'Music\MusicController@playShared')->name('music.sharer');
 
 Route::auth();
 
