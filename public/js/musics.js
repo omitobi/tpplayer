@@ -222,12 +222,10 @@ $(document).ready( function() {
 
 
 
-
     function playNext() {
         var now_playing = $('#now_playing');
         var mId = $("#fullList").find("tr.active").attr('id');
         var ID = mId.split("m").pop();
-
 
         document.title = "TP_PLayer";
         $.ajax({
@@ -240,15 +238,11 @@ $(document).ready( function() {
                 now_playing.find("#np_name").text(data.name);
                 now_playing.find("#np_duration").text(data.duration);
                 now_playing.find("#np_core").text(data.id);
-
-                $.get('/shares/music/'.concat(ID)).done(function (result) {
-                    now_playing.find("#shared_link").find('input').val(result.message);
-                })
             },
             error: 'something went wrong!'
         });
     }
-    makePlayList();
+    /*makePlayList();
     function makePlayList() {
         var list = [];
         $.ajax({
@@ -260,5 +254,18 @@ $(document).ready( function() {
             },
             error: 'something went wrong!'
         });
-    }
+    }*/
+    $('#share-btn').on('click', function () {
+        $('#shared_link').on('show.bs.collapse', function () {
+            var now_playing = $('#now_playing');
+            var mId = $("#fullList").find("tr.active").attr('id');
+            var ID = mId.split("m").pop();
+
+            $.get('/shares/music/'.concat(ID)).done(function (result) {
+                now_playing.find("#shared_link").find('input').val(result.message);
+            });
+        });
+
+    });
+
 });
