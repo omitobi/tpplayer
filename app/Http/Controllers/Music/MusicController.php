@@ -52,8 +52,6 @@ class MusicController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['message' => 'Something went wrong'], 500);
         }
-
-
     }
 
     public function playShared($identifier, $music_slug)
