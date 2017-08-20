@@ -25,7 +25,9 @@ class MusicController extends Controller
 
             $music_share = $user->musicShares()
                 ->where('music_id', $music_id)
-                ->orderBy('updated_at', 'desc')->first();
+                ->where('expiry', '>=', Carbon::now()->toDateTimeString())
+                ->orderBy('updated_at', 'desc')
+                ->first();
 
             if (!$music_share) {
                 $shared_id = uniqid($music_id, true);
