@@ -23,25 +23,35 @@ class MusicController extends Controller
 
             $user = auth()->user();
 
-            $shared_id = uniqid($music_id, true);
-            $expiry = Carbon::now()->addDay()->toDateTimeString();
+            $music_share = $user->musicShares()
+                ->where('music_id', $music_id)
+                ->where('expiry', '>=', Carbon::now()->toDateTimeString())
+                ->orderBy('updated_at', 'desc')
+                ->first();
 
-            $music_share = new MusicShare();
-            $music_share->music_id = $music->id;
-            $music_share->user_id = $user->id;
-            $music_share->share_id = $shared_id;
-            $music_share->expiry = $expiry;
-            $music_share->save();
+            if (!$music_share) {
+                $shared_id = uniqid($music_id, true);
+                $expiry = Carbon::now()->addDay()->toDateTimeString();
+                $music_share = new MusicShare();
+                $music_share->music_id = $music->id;
+                $music_share->user_id = $user->id;
+                $music_share->share_id = $shared_id;
+                $music_share->expiry = $expiry;
+                $music_share->save();
+            } else {
+                $shared_id = $music_share->share_id;
+                $music_share->expiry = Carbon::now()->addDay()->toDateTimeString();
+                $music_share->update();
+            }
+            $shared_path_param = [$shared_id, str_slug($music_share->music->name, '-')];
 
-            $share_url = route('music.sharer', [$shared_id, str_slug($music_share->music->name, '-')]);
+            $share_url = route('music.sharer', $shared_path_param);
 
             return ['message' => $share_url];
 
         } catch (\Exception $exception) {
             return response()->json(['message' => 'Something went wrong'], 500);
         }
-
-
     }
 
     public function playShared($identifier, $music_slug)

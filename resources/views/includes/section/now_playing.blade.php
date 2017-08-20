@@ -32,7 +32,7 @@
                         <a class="btn btn-info add-to-playlist-btn" data-toggle="modal" data-target=".music-to-playlist-sm">
                             Add to my Playlist
                         </a>
-                        <a class="btn btn-link share-btn" role="button" data-toggle="collapse" href="#shared_link" aria-expanded="false" aria-controls="collapseExample">
+                        <a class="btn btn-link" id="share-btn" role="button" data-toggle="collapse" href="#shared_link" aria-expanded="false" aria-controls="collapseExample">
                             <i class="fa fa-share" data-toggle="tooltip" data-placement="top" title="Share this song"></i>
                         </a>
                         <div class="collapse" id="shared_link">

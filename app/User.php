@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany(Playlist::class);
     }
 
+    public function musicShares()
+    {
+        return $this->hasMany(MusicShare::class);
+    }
+
     public function scopePlaylist($query, $playlist_id)
     {
         return $this->playlists()->find($playlist_id);
