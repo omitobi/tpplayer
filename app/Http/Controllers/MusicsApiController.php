@@ -35,12 +35,10 @@ class MusicsApiController extends Controller
     }
 
     public function getOne($music_id){
-        if(!$music = $this->musics->find($music_id))
-        {
+        if (!$music = $this->musics->find($music_id)) {
             return response()->json(['result' =>'errors', 'message' =>'Error when retrieving music'], 404);
         }
-        if(!Auth::check() && !$music->isPublic())
-        {
+        if (!Auth::check() && !$music->isPublic()) {
             return response()->json(['result' =>'errors', 'message' =>'This music is not public'], 403);
         }
         return $this->arrangeSafeResponse($music);
@@ -65,27 +63,31 @@ class MusicsApiController extends Controller
         }
 
         $newMusic = $this->separateMusic($request);
-        if(Auth::check()) {
+
+        if (Auth::check()) {
             $newMusic['user_id'] = Auth::user()->id;
         }
 
-        if(Auth::guest()){ $newMusic['user_id'] = 0; }
+        if (Auth::guest()) {
+            $newMusic['user_id'] = 0;
+        }
         $music = new Music($newMusic->all());
         
-        if (!$music->save())
-        {
+        if (!$music->save()) {
             return $response;
         }
         //playlist of 1 must exist
-        if(!$playlist = $music->musicsplaylists()->save(new MusicsPlaylist(['playlist_id' => '1'])))
-        {
+        if (!$playlist = $music->musicsplaylists()->save(new MusicsPlaylist(['playlist_id' => '1']))) {
             return response()->json(
                 [   'result' => 'errors',
                     'message' => 'Something went wrong while adding playlists'
                 ], 500);
         }
+
         $newMusic['id'] = $music->id;
-        return response()->json(['result' => 'success',
+
+        return response()->json([
+            'result' => 'success',
             'message' => 'Successfully Added new Music!',
             'params' => $this->arrangeSafeResponse($newMusic)
         ]);
@@ -94,8 +96,7 @@ class MusicsApiController extends Controller
     public function updateOne(Request $request, Music $music){
         //todo: validate and verify incoming request
         $response = json_encode(['result' =>'errors', 'message' =>'Error when updating']);
-        if($updated = $music->update($request->all()))
-        {
+        if ($updated = $music->update($request->all())) {
             $response = json_encode(['result' =>'success', 'message' => 'Successfully Updated']);
         }
         return $response;
@@ -111,20 +112,21 @@ class MusicsApiController extends Controller
         if (!$music = $this->musics->find($music_id)) {
             return response()->json(['result' => 'errors', 'message' => 'Music does not exist'], 404);
         }
+
         $user = Auth::user();
-        if(!$music->isPublic() && !$music->isOWner($user->id))
-        {
+
+        if (!$music->isPublic() && !$music->isOWner($user->id)) {
             return response()->json(['result' => 'errors', 'message' => 'You cannot delete this music'], 503);
         }
 
-        if(!$user->deletedmusics()->create(['music_id' => $music->id, 'link' => $music->link]))
-        {
+        if (!$user->deletedmusics()->create(['music_id' => $music->id, 'link' => $music->link])) {
             return response()->json(['result' => 'errors', 'message' => 'Error backing music up when deleting'], 500);
         }
-        if (!$music->delete())
-        {
+
+        if (!$music->delete()) {
             return response()->json(['result' => 'errors', 'message' => 'Error when deleting music'], 500);
         }
+
         return response(['result' => 'success'], 200);
     }
 
@@ -143,25 +145,26 @@ class MusicsApiController extends Controller
            $result[$key]['deleted_link'] = $inter->link;
            $result[$key]['deleted_at'] = $inter->updated_at->diffForHumans(); //keeping carbon ->format('Y-m-d H:i:s');
         }
+
         return (!empty($result)) ? [
             'result' => 'success',
-            'deletedMusics' => $result]
-            : response()->json(['result' => 'errors', 'message' => 'No deleted music'], 404);
+            'deletedMusics' => $result
+        ] : response()->json(['result' => 'errors', 'message' => 'No deleted music'], 404);
     }
 
 
 
     public function addBulkMusic(Request $request)
     {
-        if(Auth::guest())
-        {
+        if (Auth::guest()) {
             return response()->json(['result' => 'errors', 'message' => 'Unauthorized to add bulk music'], 403);
         }
+
         $user = Auth::user();
         $user_id = $user->id;
         $links =  $request->get('links');
-        if($existing_links = $this->links_exists($links))
-        {
+
+        if ($existing_links = $this->links_exists($links)) {
             return response()->json([
                 'result' => 'errors',
                 'message' => 'Some music(exists) already',
@@ -177,8 +180,7 @@ class MusicsApiController extends Controller
 
 //        dd($new_musics);
 
-        if(empty($new_musics))
-        {
+        if (empty($new_musics)) {
             response()->json(['result' => 'errors', 'message' => 'Something went wrong while separating music'], 500);
         }
 //
