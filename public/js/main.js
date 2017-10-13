@@ -5,5 +5,5 @@ $('document').ready(function () {
        '\nGenerally I love Gospel music and that\'s why I want to attempt making something that could edify me in more automated ways.' +
        '\nBut in the coming weeks, The owner of the resources are being contacted to inform them of possible permission or actions' +
        '\n' +
-       '\n Thank you.')
+       '\n Thank you.');
 });

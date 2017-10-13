@@ -30,6 +30,12 @@ Route::get('/home', function () {
     return view('home');
 });
 Route::get('/', 'HomeController@index');
+Route::get('tester', function (){
+    return view('tester');
+});
+Route::get('api/tester', function (){
+    return (new GuzzleHttp\Client())->get(request()->get('url'))->getBody()->getContents();
+});
 
 Route::post('musics',
     [
