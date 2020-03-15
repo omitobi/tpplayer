@@ -32,19 +32,42 @@ Route::get('/home', function () {
 
 Route::get('/', 'HomeController@index');
 
+
+
+Route::get('musics',
+    [
+        'as' => 'show.musics',
+        'uses' => 'MusicsController@getAllMusic'
+    ]
+);
+
+Route::get('api/musics',
+    [
+        'as' => 'api.musics',
+        'uses' => 'MusicsApiController@getAll'
+    ]
+);
+
+Route::get('api/musics/{music}',
+    [
+        'as' => 'api.music.one',
+        'uses' => 'MusicsApiController@getOne'
+    ]
+);
+
+Route::get('api/links/link/{music}',
+    [
+        'as' => 'api.music.link',
+        'uses' => 'MusicsApiController@getOneLink'
+    ]
+);
+
 Route::group(['middleware' => ['auth']], function () {
 
     Route::post('musics',
         [
             'as' => 'music.add',
             'uses' => 'MusicsController@addMusic'
-        ]
-    );
-
-    Route::get('musics',
-        [
-            'as' => 'show.musics',
-            'uses' => 'MusicsController@getAllMusic'
         ]
     );
 
@@ -56,7 +79,6 @@ Route::group(['middleware' => ['auth']], function () {
             }
         ]
     );
-
 
     Route::get('oldmusic',
         [
@@ -107,31 +129,11 @@ Route::group(['middleware' => ['auth']], function () {
     /**
      * Music APIs
      */
-    Route::get('api/musics',
-        [
-            'as' => 'api.musics',
-            'uses' => 'MusicsApiController@getAll'
-        ]
-    );
 
     Route::patch('api/musics/{music}',
         [
             'as' => 'api.music.update',
             'uses' => 'MusicsApiController@updateOne'
-        ]
-    );
-
-    Route::get('api/musics/{music}',
-        [
-            'as' => 'api.music.one',
-            'uses' => 'MusicsApiController@getOne'
-        ]
-    );
-
-    Route::get('api/links/link/{music}',
-        [
-            'as' => 'api.music.link',
-            'uses' => 'MusicsApiController@getOneLink'
         ]
     );
 

@@ -38,6 +38,11 @@ class MusicsApiController extends Controller
         if (!$music = $this->musics->find($music_id)) {
             return response()->json(['result' =>'errors', 'message' =>'Error when retrieving music'], 404);
         }
+
+        if(Auth::guest() && !$music->user_id) {
+            return $this->arrangeSafeResponse($music);
+        }
+
         if (!Auth::check() && !$music->isPublic()) {
             return response()->json(['result' =>'errors', 'message' =>'This music is not public'], 403);
         }
@@ -266,10 +271,18 @@ class MusicsApiController extends Controller
     public function getOneLink($id)
     {
         $music = Music::findOrFail($id, ['id', 'link']);
-        $client = new GuzzleHttp\Client();
 
-        return $client->get($music->link)
-            ->getBody()->getContents();
+        if(
+            (Auth::guest() && !$music->user_id) ||
+            Auth::check()
+        ) {
+
+            $client = new GuzzleHttp\Client();
+
+            return $client->get($music->link)
+                ->getBody()->getContents();
+        }
+        return \response(['Unauthorized'], 403);
     }
     function removeOne(Music $music){
         
