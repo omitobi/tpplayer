@@ -91,6 +91,13 @@ Route::get('api/musics/{music}',
     ]
 );
 
+Route::get('api/links/link/{completion}',
+    [
+    'as' => 'api.music.link',
+    'uses' => 'MusicsApiController@getOneLink'
+    ]
+);
+
 Route::post('api/musics',
     [
         'as' => 'api.music.add',

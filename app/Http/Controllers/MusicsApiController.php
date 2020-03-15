@@ -251,7 +251,7 @@ class MusicsApiController extends Controller
             foreach ($request as $idx => $item) {
                 $response[$idx]['id'] = $item['id'];
                 $response[$idx]['name'] = $item['name'];
-                $response[$idx]['link'] = $item['link'];
+                $response[$idx]['link'] = route('api.music.link', $item['link']);
                 $response[$idx]['duration'] = $item['duration'];
             }
         if($class === 'music' && count($request) == 1) {
@@ -263,6 +263,13 @@ class MusicsApiController extends Controller
         return $response;
     }
 
+    public function getOneLink(Music $music)
+    {
+        $client = new GuzzleHttp\Client();
+
+        return $client->get($music->link)
+            ->getBody()->getContents();
+    }
     function removeOne(Music $music){
         
     }
