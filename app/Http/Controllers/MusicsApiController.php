@@ -257,7 +257,7 @@ class MusicsApiController extends Controller
         if($class === 'music' && count($request) == 1) {
             $response['id'] = $request['id'];
             $response['name'] = $request['name'];
-            $response['link'] = $request['link'];
+            $response['link'] = route('api.music.link', $request['link']);
             $response['duration'] = $request['duration'];
         }
         return $response;
