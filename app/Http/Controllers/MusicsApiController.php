@@ -263,11 +263,11 @@ class MusicsApiController extends Controller
         return $response;
     }
 
-    public function getOneLink(Music $music)
+    public function getOneLink($link)
     {
         $client = new GuzzleHttp\Client();
 
-        return $client->get($music->link)
+        return $client->get($link)
             ->getBody()->getContents();
     }
     function removeOne(Music $music){
